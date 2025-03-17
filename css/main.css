@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  height: 100dvh;
+  background-color: rgb(67, 67, 67);
+}
+
+.navbar {
+  width: 100%;
+  height: 7.2rem;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 6rem;
+  position: sticky;
+  top: 0;
+}
+.navbar__left-containter {
+  height: 5.6rem;
+  display: flex;
+  align-items: center;
+}
+.navbar__left-containter--logo {
+  height: 4.2rem;
+  margin-right: 6rem;
+}
+.navbar__left-containter .button {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.navbar__left-containter .button:not(:last-child) {
+  margin-right: 4rem;
+}
+.navbar__left-containter .button:visited {
+  color: whitesmoke;
+  text-decoration: none;
+}
+.navbar__left-containter .button__icon {
+  fill: whitesmoke;
+  margin-right: 1rem;
+}
+.navbar__left-containter .button__text {
+  color: whitesmoke;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  position: relative;
+}
+.navbar__left-containter .button__text::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: whitesmoke;
+  transition: all 0.2s;
+}
+.navbar__left-containter .button:hover .button__text::after {
+  width: 100%;
+}
+.navbar__right-containter {
+  margin-left: auto;
+  height: 100%;
+  width: 24rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 0 2rem;
+}
+.navbar__right-containter--name {
+  color: whitesmoke;
+  margin-right: 2.5rem;
+  font-size: 1.4rem;
+}
+.navbar__right-containter--photo {
+  height: 4.8rem;
+  width: 4.8rem;
+  border-radius: 50%;
+}/*# sourceMappingURL=main.css.map */
