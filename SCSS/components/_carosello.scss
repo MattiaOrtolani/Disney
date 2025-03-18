@@ -1,4 +1,6 @@
 @use '../base' as *;
+@use '../variables' as *;
+@use '../abstract' as *;
 
 .carosello-container
 {
@@ -36,21 +38,26 @@
         background-color: $black-color;
         display: flex;
         align-items: center;
-        justify-content: center;
+        transform: translateX(-88vw);
     
         &__banner
         {
             height: 92%;
-            width: 90%;
+            width: 90vw;
             background-color: rgb(136, 105, 105);
             border-radius: 5px;
             transition: all .3s;
-            margin: 0 2rem;
-    
+
             &:hover
             {
                 border: solid 3px $white-color;
             }
+
+            &:not(:last-child)
+            {
+                margin-left: 3rem;
+            }
+    
         }
     }
 }

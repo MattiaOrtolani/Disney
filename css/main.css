@@ -185,8 +185,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 5rem;
+  width: 10rem;
   opacity: 0;
+  z-index: 1;
   transition: all 0.2s;
   right: 0;
   background: linear-gradient(to left, black, rgba(0, 0, 0, 0));
@@ -200,7 +201,7 @@ body {
   border: none;
   background-color: transparent;
   color: whitesmoke;
-  font-size: 3rem;
+  font-size: 5rem;
 }
 .carosello-container .btn-container-left {
   position: absolute;
@@ -208,8 +209,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 5rem;
+  width: 10rem;
   opacity: 0;
+  z-index: 1;
   transition: all 0.2s;
   left: 0;
   background: linear-gradient(to right, black, rgba(0, 0, 0, 0));
@@ -223,7 +225,7 @@ body {
   border: none;
   background-color: transparent;
   color: whitesmoke;
-  font-size: 3rem;
+  font-size: 5rem;
 }
 .carosello-container .carosello {
   width: 500%;
@@ -231,18 +233,20 @@ body {
   background-color: black;
   display: flex;
   align-items: center;
-  justify-content: center;
+  transform: translateX(-88vw);
 }
 .carosello-container .carosello__banner {
   height: 92%;
-  width: 90%;
+  width: 90vw;
   background-color: rgb(136, 105, 105);
   border-radius: 5px;
   transition: all 0.3s;
-  margin: 0 2rem;
 }
 .carosello-container .carosello__banner:hover {
   border: solid 3px whitesmoke;
+}
+.carosello-container .carosello__banner:not(:last-child) {
+  margin-left: 3rem;
 }
 
 /*# sourceMappingURL=main.css.map */
