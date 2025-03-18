@@ -24,6 +24,7 @@ body {
   padding-left: 5rem;
   position: sticky;
   top: 0;
+  z-index: 9999;
 }
 .navbar__left-containter {
   height: 5.6rem;
@@ -117,16 +118,16 @@ body {
   border-radius: 50%;
 }
 .navbar__right-containter .menu {
-  position: absolute;
-  top: 7.2rem;
-  height: 0;
-  background-color: black;
   width: 24rem;
-  transition: all 0.2s;
+  height: 0;
   border: solid 1px rgb(60, 60, 60);
+  background-color: black;
   border-top: none;
   border-bottom: none;
+  position: absolute;
+  top: 7.2rem;
   overflow: hidden;
+  transition: all 0.2s;
 }
 .navbar__right-containter .menu__line {
   margin-top: 0.5rem;
@@ -172,4 +173,76 @@ body {
   margin-top: 2.25rem;
   transition: all 0.5s 0.22s;
   filter: brightness(0.2);
-}/*# sourceMappingURL=main.css.map */
+}
+
+.carosello-container {
+  overflow-x: hidden;
+  position: relative;
+}
+.carosello-container .btn-container-right {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 5rem;
+  opacity: 0;
+  transition: all 0.2s;
+  right: 0;
+  background: linear-gradient(to left, black, rgba(0, 0, 0, 0));
+}
+.carosello-container .btn-container-right:hover {
+  opacity: 1;
+}
+.carosello-container .btn-container-right__button {
+  height: 4rem;
+  width: 4rem;
+  border: none;
+  background-color: transparent;
+  color: whitesmoke;
+  font-size: 3rem;
+}
+.carosello-container .btn-container-left {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 5rem;
+  opacity: 0;
+  transition: all 0.2s;
+  left: 0;
+  background: linear-gradient(to right, black, rgba(0, 0, 0, 0));
+}
+.carosello-container .btn-container-left:hover {
+  opacity: 1;
+}
+.carosello-container .btn-container-left__button {
+  height: 4rem;
+  width: 4rem;
+  border: none;
+  background-color: transparent;
+  color: whitesmoke;
+  font-size: 3rem;
+}
+.carosello-container .carosello {
+  width: 500%;
+  height: 35vw;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carosello-container .carosello__banner {
+  height: 92%;
+  width: 90%;
+  background-color: rgb(136, 105, 105);
+  border-radius: 5px;
+  transition: all 0.3s;
+  margin: 0 2rem;
+}
+.carosello-container .carosello__banner:hover {
+  border: solid 3px whitesmoke;
+}
+
+/*# sourceMappingURL=main.css.map */

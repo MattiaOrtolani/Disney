@@ -1,0 +1,28 @@
+@use 'variables' as *;
+
+@mixin slideLayout
+{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 5rem;
+    opacity: 0;
+    transition: all .2s;
+
+    &:hover
+    {
+        opacity: 1;
+    }
+}
+
+@mixin buttonSlide
+{
+    height: 4rem;
+    width: 4rem;
+    border: none;
+    background-color: transparent;
+    color: $white-color;
+    font-size: 3rem;
+}

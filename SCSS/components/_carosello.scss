@@ -1,0 +1,56 @@
+@use '../base' as *;
+
+.carosello-container
+{
+    overflow-x: hidden;
+    position: relative;
+
+    .btn-container-right
+    {
+        @include slideLayout;
+        right: 0;
+        background: linear-gradient(to left, $black-color, rgba(0,0,0,0));
+
+        &__button
+        {
+            @include buttonSlide;
+        }
+    }
+    
+    .btn-container-left
+    {
+        @include slideLayout;
+        left: 0;
+        background: linear-gradient(to right, $black-color, rgba(0,0,0,0));
+
+        &__button
+        {
+            @include buttonSlide;
+        }
+    }
+
+    .carosello
+    {
+        width: 500%;
+        height: 35vw;
+        background-color: $black-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        &__banner
+        {
+            height: 92%;
+            width: 90%;
+            background-color: rgb(136, 105, 105);
+            border-radius: 5px;
+            transition: all .3s;
+            margin: 0 2rem;
+    
+            &:hover
+            {
+                border: solid 3px $white-color;
+            }
+        }
+    }
+}

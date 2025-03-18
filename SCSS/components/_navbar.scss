@@ -1,3 +1,5 @@
+@use '../base' as *;
+
 .navbar
 {
     width: 100%;
@@ -8,6 +10,7 @@
     padding-left: 5rem;
     position: sticky;
     top: 0;
+    z-index: 9999;
 
     &__left-containter
     {
@@ -138,17 +141,17 @@
 
         .menu
         {
-            position: absolute;
-            top: 7.2rem;
-            height: 0;
-            background-color: $black-color;
             width: 24rem;
-            transition: all .2s;
+            height: 0;
             border: solid 1px $grey-border-color;
+            background-color: $black-color;
             border-top: none;
             border-bottom: none;
+            position: absolute;
+            top: 7.2rem;
             overflow: hidden;
-
+            transition: all .2s;
+            
             &__line
             {
                 margin-top: .5rem;

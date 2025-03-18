@@ -1,5 +1,1 @@
-@import 'base/base';
-@import 'base/variables';
-
-@import 'components/navbar';
-@import 'components/carosello';
+@use 'global' as *;
