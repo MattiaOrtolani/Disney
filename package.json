@@ -1,0 +1,21 @@
+{
+  "name": "disney",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/MattiaOrtolani/Disney#readme",
+  "bugs": {
+    "url": "https://github.com/MattiaOrtolani/Disney/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattiaOrtolani/Disney.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  }
+}

@@ -229,11 +229,11 @@ body {
 }
 .carosello-container .carosello {
   width: 500%;
-  height: 35vw;
+  height: 33vw;
   background-color: black;
   display: flex;
   align-items: center;
-  transform: translateX(-88vw);
+  transform: translateX(-90vw);
 }
 .carosello-container .carosello__banner {
   height: 92%;
@@ -246,7 +246,23 @@ body {
   border: solid 3px whitesmoke;
 }
 .carosello-container .carosello__banner:not(:last-child) {
-  margin-left: 3rem;
+  margin-left: 2.5vw;
+}
+
+.carosello-index {
+  width: 100%;
+  height: 2rem;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.carosello-index__dot {
+  width: 7px;
+  height: 7px;
+  background-color: grey;
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=main.css.map */
