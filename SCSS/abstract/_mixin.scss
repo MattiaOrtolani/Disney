@@ -8,13 +8,14 @@
     align-items: center;
     height: 100%;
     width: 10rem;
-    opacity: 0;
     z-index: 1;
-    transition: all .2s;
 
     &:hover
     {
-        opacity: 1;
+        .btn-container-left__button, .btn-container-right__button
+        {
+            opacity: 1;
+        }
     }
 }
 
@@ -26,4 +27,6 @@
     background-color: transparent;
     color: $white-color;
     font-size: 5rem;
+    opacity: 0;
+    transition: all .25s;
 }
