@@ -8,27 +8,28 @@
     flex-direction: column;
     justify-content: center;
     background-color: black;
-    padding-left: 5.5rem;
-    overflow-x: hidden;
 
     &__title
     {
         font-size: 1.8rem;
         color: $white-color;
+        padding-left: 5rem;
     }
 
     .film-carosello
     {
-        margin-top: 1.8rem;
-        height: min-content;
+        height: 21rem;
         display: flex;
         align-items: center;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 0 5rem;
 
         &__container
         {
             min-width: 32.4rem;
             height: 17.4rem;
-            background-color: red;
+            background-color: rgb(161, 113, 113);
             border-radius: 4px;
             margin-right: 2.2rem;
             transition: all .35s;
