@@ -282,6 +282,7 @@ body {
   height: 21rem;
   display: flex;
   align-items: center;
+  overflow-y: hidden;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 0 5rem;
@@ -293,6 +294,32 @@ body {
   border-radius: 4px;
   margin-right: 2.2rem;
   transition: all 0.35s;
+  overflow: hidden;
+  position: relative;
+}
+.new-film .film-carosello__container > img {
+  width: 100%;
+  height: 100%;
+}
+.new-film .film-carosello__container > h3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.6rem;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+  background-color: rgba(245, 245, 245, 0.6);
+  color: black;
+}
+.new-film .film-carosello__container > p {
+  position: absolute;
+  top: 3.8rem;
+  left: 0;
+  font-size: 1.4rem;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+  background-color: rgba(245, 245, 245, 0.6);
+  color: black;
 }
 .new-film .film-carosello__container:hover {
   outline: solid 4px whitesmoke;
