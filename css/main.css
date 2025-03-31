@@ -250,7 +250,33 @@ body {
   width: 90vw;
   background-color: rgb(136, 105, 105);
   border-radius: 5px;
+  overflow: hidden;
+  position: relative;
   transition: all 0.3s;
+}
+.carosello-container .carosello__banner img {
+  width: 100%;
+}
+.carosello-container .carosello__banner div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom-right-radius: 5px;
+}
+.carosello-container .carosello__banner div, .carosello-container .carosello__banner div h1, .carosello-container .carosello__banner div p {
+  color: black;
+}
+.carosello-container .carosello__banner div, .carosello-container .carosello__banner div h1 {
+  font-size: 4rem;
+}
+.carosello-container .carosello__banner div, .carosello-container .carosello__banner div p {
+  font-size: 2rem;
+  padding-left: 1rem;
 }
 .carosello-container .carosello__banner:hover {
   border: solid 3px whitesmoke;
@@ -322,7 +348,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 20.5rem;
+  height: 16rem;
   background-color: black;
 }
 .footer__logo {
@@ -331,6 +357,7 @@ body {
 }
 .footer .contact-box {
   display: flex;
+  flex-wrap: wrap;
   gap: 3.5rem;
   margin-top: 1.5rem;
 }
@@ -339,14 +366,10 @@ body {
   color: whitesmoke;
   font-size: 1.05rem;
 }
-.footer__persoanl-data {
-  color: whitesmoke;
-  font-size: 1.1rem;
-  margin: 3.25rem 0;
-}
 .footer__copyright {
   color: rgb(150, 150, 150);
   font-size: 1.2rem;
+  margin-top: 3.25rem;
 }
 
 /*# sourceMappingURL=main.css.map */
