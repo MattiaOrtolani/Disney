@@ -18,8 +18,6 @@ export const api = async () => {
             const cardHtml = `
                 <div class="film-carosello__container">
                     <img src="https://image.tmdb.org/t/p/w500${film.backdrop_path}" alt="${film.title}">
-                    <h3>${film.title}</h3>
-                    <p>Rating: ${film.vote_average}</p>
                 </div>
             `;
             filmCarosello.innerHTML += cardHtml;

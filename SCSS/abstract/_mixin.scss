@@ -30,10 +30,3 @@
     opacity: 0;
     transition: all .25s;
 }
-
-@mixin backgroundCarouselText
-{
-    backdrop-filter: blur(5px);
-    background-color: rgba($white-color, .6);
-    color: $black-color;
-}

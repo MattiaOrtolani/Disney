@@ -6,12 +6,13 @@
 {
     overflow-x: hidden;
     position: relative;
+    background-color: $dark-grey-background;
 
     .btn-container-right
     {
         @include slideLayout;
         right: 0;
-        background: linear-gradient(to left, $black-color, rgba(0,0,0,0));
+        background: linear-gradient(to left, rgba(0,0,0,.4), rgba(0,0,0,0));
 
         &__button
         {
@@ -23,7 +24,7 @@
     {
         @include slideLayout;
         left: 0;
-        background: linear-gradient(to right, $black-color, rgba(0,0,0,0));
+        background: linear-gradient(to right, rgba(0,0,0,.4), rgba(0,0,0,0));
 
         &__button
         {
@@ -35,7 +36,6 @@
     {
         width: 500%;
         height: 33vw;
-        background-color: $black-color;
         display: flex;
         align-items: center;
         transform: translateX(-90vw);

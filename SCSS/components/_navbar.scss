@@ -172,6 +172,19 @@
                 transition: all .5s .22s;
                 filter: brightness(.2);
 
+                &:last-of-type
+                {
+                    margin-bottom: 1.125rem;
+                }
+
+                &:hover
+                {
+                    .guest__name
+                    {
+                        color: $white-color;
+                    }
+                }
+
                 &__photo
                 {
                     height: 4.8rem;
@@ -182,9 +195,10 @@
 
                 &__name
                 {
-                    color: $white-color;
+                    color: $light-grey-color;
                     margin-right: 2.5rem;
                     font-size: 1.4rem;
+                    transition: all .3s;
                 }
 
                 &__add
@@ -202,12 +216,17 @@
 
             &__option
             {
-                color: $white-color;
+                color: $light-grey-color;
                 font-size: 1.4rem;
+                padding: 1.125rem 0;
                 padding-left: 2.5rem;
-                margin-top: 2.25rem;
-                transition: all .5s .22s;
                 filter: brightness(.2);
+                transition: filter .5s .22s;
+                
+                &:hover
+                {
+                    color: $white-color;
+                }
             }
         }
     }

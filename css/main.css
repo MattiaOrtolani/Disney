@@ -12,7 +12,7 @@ html {
 
 body {
   height: 100dvh;
-  background-color: rgb(123, 123, 123);
+  background-color: black;
 }
 
 .navbar {
@@ -145,6 +145,12 @@ body {
   transition: all 0.5s 0.22s;
   filter: brightness(0.2);
 }
+.navbar__right-containter .menu .guest:last-of-type {
+  margin-bottom: 1.125rem;
+}
+.navbar__right-containter .menu .guest:hover .guest__name {
+  color: whitesmoke;
+}
 .navbar__right-containter .menu .guest__photo {
   height: 4.8rem;
   width: 4.8rem;
@@ -152,9 +158,10 @@ body {
   margin-right: 2rem;
 }
 .navbar__right-containter .menu .guest__name {
-  color: whitesmoke;
+  color: rgb(150, 150, 150);
   margin-right: 2.5rem;
   font-size: 1.4rem;
+  transition: all 0.3s;
 }
 .navbar__right-containter .menu .guest__add {
   height: 4.8rem;
@@ -167,17 +174,21 @@ body {
   align-items: center;
 }
 .navbar__right-containter .menu__option {
-  color: whitesmoke;
+  color: rgb(150, 150, 150);
   font-size: 1.4rem;
+  padding: 1.125rem 0;
   padding-left: 2.5rem;
-  margin-top: 2.25rem;
-  transition: all 0.5s 0.22s;
   filter: brightness(0.2);
+  transition: filter 0.5s 0.22s;
+}
+.navbar__right-containter .menu__option:hover {
+  color: whitesmoke;
 }
 
 .carosello-container {
   overflow-x: hidden;
   position: relative;
+  background-color: rgb(20, 20, 20);
 }
 .carosello-container .btn-container-right {
   position: absolute;
@@ -188,7 +199,7 @@ body {
   width: 10rem;
   z-index: 1;
   right: 0;
-  background: linear-gradient(to left, black, rgba(0, 0, 0, 0));
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
 }
 .carosello-container .btn-container-right:hover .btn-container-left__button, .carosello-container .btn-container-right:hover .btn-container-right__button {
   opacity: 1;
@@ -212,7 +223,7 @@ body {
   width: 10rem;
   z-index: 1;
   left: 0;
-  background: linear-gradient(to right, black, rgba(0, 0, 0, 0));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
 }
 .carosello-container .btn-container-left:hover .btn-container-left__button, .carosello-container .btn-container-left:hover .btn-container-right__button {
   opacity: 1;
@@ -230,7 +241,6 @@ body {
 .carosello-container .carosello {
   width: 500%;
   height: 33vw;
-  background-color: black;
   display: flex;
   align-items: center;
   transform: translateX(-90vw);
@@ -257,11 +267,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  background-color: rgb(20, 20, 20);
 }
 .carosello-index__dot {
   width: 7px;
   height: 7px;
-  background-color: grey;
+  background-color: rgb(150, 150, 150);
   border-radius: 50%;
 }
 
@@ -271,7 +282,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: black;
+  background-color: rgb(20, 20, 20);
 }
 .new-film__title {
   font-size: 1.8rem;
@@ -301,30 +312,41 @@ body {
   width: 100%;
   height: 100%;
 }
-.new-film .film-carosello__container > h3 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 1.6rem;
-  padding: 1rem;
-  backdrop-filter: blur(5px);
-  background-color: rgba(245, 245, 245, 0.6);
-  color: black;
-}
-.new-film .film-carosello__container > p {
-  position: absolute;
-  top: 3.8rem;
-  left: 0;
-  font-size: 1.4rem;
-  padding: 1rem;
-  backdrop-filter: blur(5px);
-  background-color: rgba(245, 245, 245, 0.6);
-  color: black;
-}
 .new-film .film-carosello__container:hover {
   outline: solid 4px whitesmoke;
   outline-offset: 3px;
   transform: scale(1.05);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 20.5rem;
+  background-color: black;
+}
+.footer__logo {
+  margin-top: 2rem;
+  height: 4.8rem;
+}
+.footer .contact-box {
+  display: flex;
+  gap: 3.5rem;
+  margin-top: 1.5rem;
+}
+.footer .contact-box__link {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 1.05rem;
+}
+.footer__persoanl-data {
+  color: whitesmoke;
+  font-size: 1.1rem;
+  margin: 3.25rem 0;
+}
+.footer__copyright {
+  color: rgb(150, 150, 150);
+  font-size: 1.2rem;
 }
 
 /*# sourceMappingURL=main.css.map */
