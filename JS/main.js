@@ -1,9 +1,9 @@
-// import { createFilmCards } from './carusel/carousel.js';
-import { api } from './api/api.js';
-import { apiHeroCarousel } from './api/apiHeroCarousel.js';
+import { filmSection } from './pages/film/newsCarousel.js';
+import { filmHero } from './pages/hero/heroCarousel.js';
+import { leftBtnSlide } from './pages/hero/buttonSlide.js';
+import { rightBtnSlide } from './pages/hero/buttonSlide.js';
 
-api();
-apiHeroCarousel();
-
-// Avvia la funzione al caricamento del DOM
-// document.addEventListener('DOMContentLoaded', createFilmCards);
+filmHero();
+filmSection();
+leftBtnSlide();
+rightBtnSlide();
