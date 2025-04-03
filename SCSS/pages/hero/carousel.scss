@@ -44,24 +44,13 @@
         &__banner
         {
             height: 92%;
-            width: 90vw;
+            min-width: 90vw;
             background-color: rgb(136, 105, 105);
             border-radius: 5px;
             overflow: hidden;
             position: relative;
             margin: 0 1.25vw;
-            
             transition: all .3s;
-
-            &:first-child
-            {
-                margin-left: 4vw;
-            }
-
-            &:last-child
-            {
-                margin-right: 4vw;
-            }
             
             & img
             {

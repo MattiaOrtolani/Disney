@@ -1,4 +1,4 @@
-import { apiFilmNews } from '../../services/apiFilmNews.js';
+import { apiFilmNews } from '../../api/apiNews.js';
 
 const filmCarosello = document.querySelector('.film-carosello');        
 

@@ -77,20 +77,13 @@ body {
 }
 .carosello-container .carosello__banner {
   height: 92%;
-  width: 90vw;
+  min-width: 90vw;
   background-color: rgb(136, 105, 105);
   border-radius: 5px;
   overflow: hidden;
   position: relative;
   margin: 0 1.25vw;
-  transform: translateX(-184vw);
   transition: all 0.3s;
-}
-.carosello-container .carosello__banner:first-child {
-  margin-left: 4vw;
-}
-.carosello-container .carosello__banner:last-child {
-  margin-right: 4vw;
 }
 .carosello-container .carosello__banner img {
   width: 100%;
