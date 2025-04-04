@@ -15,6 +15,10 @@ body {
   background-color: black;
 }
 
+.no-transition {
+  transition: none !important;
+}
+
 .carosello-container {
   overflow-x: hidden;
   position: relative;
