@@ -4,7 +4,7 @@ const carousel = document.querySelector('.carosello');
 const carouselIndex = document.querySelectorAll('.carosello-index__dot');
 
 let position = -181.25, index = 0;
-let isSliding = false;
+let canClick = true;
 carousel.style.transform = `translateX(${position}vw)`;
 carouselIndex[index].style.backgroundColor = 'white';
 
@@ -12,8 +12,8 @@ export function leftBtnSlide()
 {
     leftBtn.addEventListener('click',  () =>
     {
-        if (isSliding) return;
-        isSliding = true;
+        if (!canClick) return;
+        canClick = false;
 
         position += 92.5;
         carousel.style.transform = `translateX(${position}vw)`;
@@ -29,7 +29,7 @@ export function leftBtnSlide()
                 carousel.style.transform = `translateX(${position}vw)`;
                 void carousel.offsetWidth;
                 carousel.classList.remove("no-transition");
-                isSliding = false;
+                canClick = true;
             },600);
 
             carouselIndex[index].style.backgroundColor = 'rgb(150, 150, 150)';
@@ -40,7 +40,9 @@ export function leftBtnSlide()
         {
             carouselIndex[index--].style.backgroundColor = 'rgb(150, 150, 150)';
             carouselIndex[index].style.backgroundColor = 'white';
-            isSliding = false;
+            setTimeout(() => {
+                canClick = true;
+            }, 600);
         }
     });
 }
@@ -49,8 +51,8 @@ export function rightBtnSlide()
 {
     rightBtn.addEventListener('click',  () =>
     {
-        if (isSliding) return;
-        isSliding = true;
+        if (!canClick) return;
+        canClick = false;
 
         position -= 92.5;
         carousel.style.transform = `translateX(${position}vw)`;
@@ -66,7 +68,7 @@ export function rightBtnSlide()
                 carousel.style.transform = `translateX(${position}vw)`;
                 void carousel.offsetWidth;
                 carousel.classList.remove("no-transition");
-                isSliding = false;
+                canClick = true;
             },600);
 
             carouselIndex[index].style.backgroundColor = 'rgb(150, 150, 150)';
@@ -77,7 +79,9 @@ export function rightBtnSlide()
         {
             carouselIndex[index++].style.backgroundColor = 'rgb(150, 150, 150)';
             carouselIndex[index].style.backgroundColor = 'white';
-            isSliding = false;
+            setTimeout(() => {
+                canClick = true;
+            }, 600);
         }
     });
 }

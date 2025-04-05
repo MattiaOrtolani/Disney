@@ -1,9 +1,9 @@
-import { apiFilmHero } from '../../api/apiHero.js';
+import { apiPopular } from '../../../api/apiPopular.js';
 
 const carousel = document.querySelector('.carosello');
 
 export const filmHero = async () => {
-    const data = await apiFilmHero();
+    const data = await apiPopular();
     const films = data.results.slice(0, 5);
 
     // Ordine richiesto per carosello infinito

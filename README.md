@@ -1,0 +1,2 @@
+- migliorare la ricerca, quando vuota svuotarla lasciano il vuoto, 
+- implementarla con gli altri filtri di ricerca

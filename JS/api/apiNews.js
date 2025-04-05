@@ -1,5 +1,4 @@
-// Funzione per effettuare la chiamata API e popolare dinamicamente le card
-export const apiFilmNews = async () => {
+export const apiNews = async () => {
     
         const result = await fetch("https://api.themoviedb.org/3/movie/popular", {
             headers: {
