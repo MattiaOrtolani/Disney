@@ -176,6 +176,7 @@ body {
   padding-left: 9rem;
   font-size: 3rem;
   color: whitesmoke;
+  margin-bottom: 10rem;
 }
 .search-container__search-bar::placeholder {
   font-size: 3rem;
@@ -416,6 +417,7 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 2.2rem;
   padding: 10rem 6.8rem;
+  padding-top: 0;
   background-color: transparent;
 }
 .grid-result .card {
@@ -463,6 +465,7 @@ body {
   width: max-content;
   overflow-x: auto;
   margin-left: 6.8rem;
+  margin-bottom: 4rem;
 }
 .container .slider .layout__btn {
   min-width: 10.2rem;
