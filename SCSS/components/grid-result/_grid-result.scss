@@ -1,0 +1,52 @@
+@use "../../variables/color" as *;
+
+.grid-result
+{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2.2rem;
+    padding: 10rem 6.8rem;
+    background-color: transparent;
+
+    .card
+    {
+        height: min-content;
+        width: min-content;
+
+        & > h1
+        {
+            margin-top: 1.6rem;
+            color: $light-grey-color;
+            transition: all .1s;
+        }
+
+        &__info
+        {
+            display: flex;
+            gap: 2rem;
+            color: $grey-color;
+            margin-top: .3rem;
+
+            &--text
+            {
+                font-size: 1.2rem;
+                color: $grey-color;
+                transition: all .1s;
+            }
+        }
+
+        &:hover
+        {
+            & > h1
+            {
+                color: lighten($light-grey-color, 30%);
+            }
+
+            .card__info--text
+            {
+                color: lighten($grey-color, 25%);
+            }
+            
+        }
+    }
+}

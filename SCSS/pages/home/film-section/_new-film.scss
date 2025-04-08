@@ -3,12 +3,12 @@
 
 .new-film
 {
-    width: 100%;
     height: 25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: $dark-grey-background;
+    overflow-x: hidden;
 
     &__title
     {
@@ -19,13 +19,20 @@
 
     .film-carosello
     {
-        height: 22.2rem;
-        display: flex;
-        align-items: center;
+        height: min-content;
         overflow-y: hidden;
         overflow-x: auto;
         scrollbar-width: none;
+    }
+
+    .continaer-slide
+    {
+        width: max-content;
+        height: 22.2rem;
+        display: flex;
+        align-items: center;
         padding: 0 5rem;
         gap: 2.2rem;
+        overflow-x: auto;
     }
 }

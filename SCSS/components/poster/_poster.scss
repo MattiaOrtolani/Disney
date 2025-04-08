@@ -2,13 +2,13 @@
 
 .poster
 {
-    min-width: 33.9rem;
-    height: 19.1rem;
+    width: 17.6vw; // 331px | 17.6vw
+    height: 9.95vw; // 191px | 9.95vw
+    max-width: 33.1rem; // 191px
     background-color: rgb(161, 113, 113);
     border-radius: 4px;
     transition: all .35s;
     overflow: hidden;
-    position: relative;
 
     & > img
     {

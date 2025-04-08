@@ -1,6 +1,6 @@
 import { apiNews } from '../../../api/apiNews.js';
 
-const filmCarosello = document.querySelector('.film-carosello');        
+const filmCarosello = document.querySelector('.continaer-slide');        
 
 export const filmSection = async () => {
     const data = await apiNews();

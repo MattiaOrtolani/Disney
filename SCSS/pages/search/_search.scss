@@ -3,6 +3,7 @@
 .search-container
 {
     min-height: calc(100dvh - 16rem - 7.2rem);
+    background-color: $dark-grey-background;
 
     &__search-bar
     {
@@ -30,56 +31,6 @@
             &::placeholder
             {
                 color: rgb(229, 229, 229);
-            }
-        }
-    }
-
-    .result
-    {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2.2rem;
-        padding: 10rem 6.8rem;
-
-        .card
-        {
-            height: min-content;
-            width: min-content;
-
-            & > h1
-            {
-                margin-top: 1.6rem;
-                color: $light-grey-color;
-                transition: all .1s;
-            }
-
-            &__info
-            {
-                display: flex;
-                gap: 2rem;
-                color: $grey-color;
-                margin-top: .3rem;
-
-                &--text
-                {
-                    font-size: 1.2rem;
-                    color: $grey-color;
-                    transition: all .1s;
-                }
-            }
-
-            &:hover
-            {
-                & > h1
-                {
-                    color: lighten($light-grey-color, 30%);
-                }
-
-                .card__info--text
-                {
-                    color: lighten($grey-color, 25%);
-                }
-                
             }
         }
     }

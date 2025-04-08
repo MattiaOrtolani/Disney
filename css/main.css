@@ -136,12 +136,12 @@ body {
 }
 
 .new-film {
-  width: 100%;
   height: 25rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: rgb(20, 20, 20);
+  overflow-x: hidden;
 }
 .new-film__title {
   font-size: 1.8rem;
@@ -149,18 +149,24 @@ body {
   padding-left: 5rem;
 }
 .new-film .film-carosello {
-  height: 22.2rem;
-  display: flex;
-  align-items: center;
+  height: min-content;
   overflow-y: hidden;
   overflow-x: auto;
   scrollbar-width: none;
+}
+.new-film .continaer-slide {
+  width: max-content;
+  height: 22.2rem;
+  display: flex;
+  align-items: center;
   padding: 0 5rem;
   gap: 2.2rem;
+  overflow-x: auto;
 }
 
 .search-container {
   min-height: calc(100dvh - 16rem - 7.2rem);
+  background-color: rgb(20, 20, 20);
 }
 .search-container__search-bar {
   width: 100%;
@@ -184,38 +190,6 @@ body {
 .search-container__search-bar:focus::placeholder {
   color: rgb(229, 229, 229);
 }
-.search-container .result {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.2rem;
-  padding: 10rem 6.8rem;
-}
-.search-container .result .card {
-  height: min-content;
-  width: min-content;
-}
-.search-container .result .card > h1 {
-  margin-top: 1.6rem;
-  color: rgb(150, 150, 150);
-  transition: all 0.1s;
-}
-.search-container .result .card__info {
-  display: flex;
-  gap: 2rem;
-  color: rgb(130, 130, 130);
-  margin-top: 0.3rem;
-}
-.search-container .result .card__info--text {
-  font-size: 1.2rem;
-  color: rgb(130, 130, 130);
-  transition: all 0.1s;
-}
-.search-container .result .card:hover > h1 {
-  color: rgb(226.5, 226.5, 226.5);
-}
-.search-container .result .card:hover .card__info--text {
-  color: rgb(193.75, 193.75, 193.75);
-}
 
 .navbar {
   width: 100%;
@@ -223,7 +197,7 @@ body {
   background-color: black;
   display: flex;
   align-items: center;
-  padding-left: 5rem;
+  padding-left: 3.6rem;
   position: sticky;
   top: 0;
   z-index: 9999;
@@ -234,8 +208,9 @@ body {
   align-items: center;
 }
 .navbar__left-containter--logo {
-  height: 4.2rem;
-  margin-right: 6rem;
+  height: 4.8rem;
+  width: 8.6rem;
+  margin-right: 5.2rem;
 }
 .navbar__left-containter .button {
   height: 100%;
@@ -391,7 +366,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 16rem;
+  height: max-content;
   background-color: black;
 }
 .footer__logo {
@@ -399,6 +374,7 @@ body {
   height: 4.8rem;
 }
 .footer .contact-box {
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -417,13 +393,13 @@ body {
 }
 
 .poster {
-  min-width: 33.9rem;
-  height: 19.1rem;
+  width: 17.6vw;
+  height: 9.95vw;
+  max-width: 33.1rem;
   background-color: rgb(161, 113, 113);
   border-radius: 4px;
   transition: all 0.35s;
   overflow: hidden;
-  position: relative;
 }
 .poster > img {
   width: 100%;
@@ -433,6 +409,75 @@ body {
   outline: solid 4px whitesmoke;
   outline-offset: 3px;
   transform: scale(1.05);
+}
+
+.grid-result {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.2rem;
+  padding: 10rem 6.8rem;
+  background-color: transparent;
+}
+.grid-result .card {
+  height: min-content;
+  width: min-content;
+}
+.grid-result .card > h1 {
+  margin-top: 1.6rem;
+  color: rgb(150, 150, 150);
+  transition: all 0.1s;
+}
+.grid-result .card__info {
+  display: flex;
+  gap: 2rem;
+  color: rgb(130, 130, 130);
+  margin-top: 0.3rem;
+}
+.grid-result .card__info--text {
+  font-size: 1.2rem;
+  color: rgb(130, 130, 130);
+  transition: all 0.1s;
+}
+.grid-result .card:hover > h1 {
+  color: rgb(226.5, 226.5, 226.5);
+}
+.grid-result .card:hover .card__info--text {
+  color: rgb(193.75, 193.75, 193.75);
+}
+
+.container {
+  text-align: center;
+  min-height: calc(100dvh - 16rem - 7.2rem);
+  background-color: rgb(20, 20, 20);
+}
+.container__title {
+  color: whitesmoke;
+  font-size: 4.4rem;
+  padding: 4rem 0;
+}
+.container .slider {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.container .slider .layout {
+  width: max-content;
+  overflow-x: auto;
+  margin-left: 6.8rem;
+}
+.container .slider .layout__btn {
+  min-width: 10.2rem;
+  height: 4rem;
+  padding: 0 1.6rem;
+  margin-right: 2rem;
+  color: whitesmoke;
+  background-color: rgb(45, 47, 53);
+  border: none;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+.container .slider .layout__btn:hover {
+  color: black;
+  background-color: whitesmoke;
 }
 
 /*# sourceMappingURL=main.css.map */
