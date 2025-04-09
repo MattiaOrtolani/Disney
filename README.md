@@ -34,3 +34,10 @@
 # home: 
 
 - aggiungere altri poster per renderla leggermente più lunga
+
+---
+
+DEMO: <a href="https://mattiaortolani.github.io/Disney/">CLICCA PER VISUALIZZARE</a>
+
+<p>Oppure scannerizza il QR code</p>
+<img src="assets/img/qr.png" width="200px">
