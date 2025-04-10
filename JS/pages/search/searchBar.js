@@ -35,7 +35,7 @@ export const liveSearch = async () =>
         const card = document.createElement('div');
         card.classList.add('card');
         card.setAttribute('data-id', item.id);
-        const titleText = (item.title || "Titolo non disponibile").toLowerCase();
+        const titleText = (item.title || item.name || "Titolo non disponibile").toLowerCase();
         card.setAttribute('data-title', titleText);
         let genreText = "";
         if (item.genre_ids && item.genre_ids.length > 0) {
