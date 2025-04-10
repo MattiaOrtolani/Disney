@@ -6,20 +6,36 @@ export async function initSeriesFilter()
     const genreButtons = document.querySelectorAll(".layout__btn");
     const resultGrid = document.querySelector(".grid-result");
     const totalPages = 32;
-    let allSeries = [];
     let genres = [];
 
     genres = (await apiGenre()).genres;
 
-    for (let page = 1; page <= totalPages; page++) 
-    {
+    const seenIds = new Set();
+    for (let page = 1; page <= totalPages; page++) {
         const data = await apiSeries(page);
-        allSeries.push(...data.results);
+        data.results.forEach(series => {
+            if (!seenIds.has(series.id)) {
+                seenIds.add(series.id);
+                const card = createCard(series);
+                resultGrid.appendChild(card);
+            }
+        });
     }
 
     function createCard(series) {
         const card = document.createElement("div");
         card.classList.add("card");
+        card.setAttribute("data-id", series.id);
+
+        let genreText = "";
+        if (series.genre_ids && series.genre_ids.length > 0) {
+            const genreNames = series.genre_ids.map(id => {
+                const foundGenre = genres.find(genre => genre.id === id);
+                return foundGenre ? foundGenre.name.toLowerCase() : '';
+            }).filter(Boolean);
+            genreText = genreNames.join(' ');
+        }
+        card.setAttribute("data-genres", genreText);
 
         const poster = document.createElement("div");
         poster.classList.add("poster");
@@ -35,27 +51,6 @@ export async function initSeriesFilter()
         return card;
     }
 
-    function renderMovies(seriess) {
-        resultGrid.innerHTML = "";
-        seriess.forEach((series) => {
-            const card = createCard(series);
-            resultGrid.appendChild(card);
-        });
-    }
-
-    function filterByGenre(genreName) {
-        if (genreName === "Tutti le serie") {
-            return allSeries;
-        }
-
-        const genreMatch = genres.find(
-            (g) => g.name.toLowerCase() === genreName.toLowerCase()
-        );
-        if (!genreMatch) return [];
-
-        return allSeries.filter((series) => series.genre_ids.includes(genreMatch.id));
-    }
-
     function updateButtonStyles(activeButton) {
         genreButtons.forEach((btn) => {
             btn.style.backgroundColor = "rgb(45, 47, 53)";
@@ -67,13 +62,19 @@ export async function initSeriesFilter()
 
     genreButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            const genre = button.textContent.trim();
-            const filteredMovies = filterByGenre(genre);
-            renderMovies(filteredMovies);
+            const genre = button.textContent.trim().toLowerCase();
+            const cards = resultGrid.querySelectorAll(".card");
+            cards.forEach(card => {
+                const genres = card.getAttribute("data-genres");
+                if (genre === "tutti le serie" || (genres && genres.includes(genre))) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
             updateButtonStyles(button);
         });
     });
 
-    renderMovies(allSeries);
     updateButtonStyles(genreButtons[0]);
 }

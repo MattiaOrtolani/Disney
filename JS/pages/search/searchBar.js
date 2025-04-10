@@ -2,7 +2,7 @@ import { apiMovie } from "../../api/apiMovie.js";
 import { apiGenre } from "../../api/apiGenre.js";
 import { apiSeries } from "../../api/apiSeries.js";
 
-export const liveSearch = async ()  => 
+export const liveSearch = async () => 
 {
     await new Promise(resolve => 
     {
@@ -17,10 +17,8 @@ export const liveSearch = async ()  =>
 
     const genres = (await apiGenre()).genres;
     const totalPages = 32;
-    let allMovies = [];
     let currentPage = 1;
     let isLoading = false;
-    let allSeries = [];
     let currentSeriesPage = 1;
 
     const searchBar = document.querySelector('.search-container__search-bar');
@@ -32,10 +30,22 @@ export const liveSearch = async ()  =>
         return;
     }
 
-    function createCard(item, type = "movie") 
+    function createCard(item) 
     {
         const card = document.createElement('div');
         card.classList.add('card');
+        card.setAttribute('data-id', item.id);
+        const titleText = (item.title || "Titolo non disponibile").toLowerCase();
+        card.setAttribute('data-title', titleText);
+        let genreText = "";
+        if (item.genre_ids && item.genre_ids.length > 0) {
+            const genreNames = item.genre_ids.map(id => {
+                const foundGenre = genres.find(genre => genre.id === id);
+                return foundGenre ? foundGenre.name.toLowerCase() : '';
+            }).filter(Boolean);
+            genreText = genreNames.join(' ');
+        }
+        card.setAttribute('data-genres', genreText);
 
         const poster = document.createElement('div');
         poster.classList.add('poster');
@@ -47,7 +57,7 @@ export const liveSearch = async ()  =>
         }
 
         const titleEl = document.createElement('h1');
-        titleEl.textContent = type === "movie" ? item.title || "Titolo non disponibile" : item.name || "Titolo non disponibile";
+        titleEl.textContent = item.title || item.name || "Titolo non disponibile";
 
         const cardInfo = document.createElement('div');
         cardInfo.classList.add('card__info');
@@ -58,7 +68,7 @@ export const liveSearch = async ()  =>
 
         const pAnno = document.createElement('p');
         pAnno.classList.add('card__info--text');
-        const date = type === "movie" ? item.release_date : item.first_air_date;
+        const date = item.release_date || item.first_air_date;
         pAnno.textContent = date ? date.slice(0, 4) : "Anno non disponibile";
 
         const pGeneri = document.createElement('p');
@@ -88,10 +98,11 @@ export const liveSearch = async ()  =>
         if (isLoading || currentPage > totalPages) return;
         isLoading = true;
         const data = await apiMovie(currentPage);
-        allMovies.push(...data.results);
-        data.results.forEach(movie => {
-            const card = createCard(movie);
-            resultContainer.appendChild(card);
+        data.results.forEach(item => {
+            if (!resultContainer.querySelector(`.card[data-id="${item.id}"]`)) {
+                const card = createCard(item);
+                resultContainer.appendChild(card);
+            }
         });
         currentPage++;
         isLoading = false;
@@ -101,10 +112,11 @@ export const liveSearch = async ()  =>
         if (isLoading || currentSeriesPage > totalPages) return;
         isLoading = true;
         const data = await apiSeries(currentSeriesPage);
-        allSeries.push(...data.results);
-        data.results.forEach(series => {
-            const card = createCard(series, "series");
-            resultContainer.appendChild(card);
+        data.results.forEach(item => {
+            if (!resultContainer.querySelector(`.card[data-id="${item.id}"]`)) {
+                const card = createCard(item);
+                resultContainer.appendChild(card);
+            }
         });
         currentSeriesPage++;
         isLoading = false;
@@ -118,57 +130,23 @@ export const liveSearch = async ()  =>
         await loadMoreSeries();
     }
 
-    function renderFilteredMovies(query) {
-        const filteredMovies = allMovies.filter(movie => 
-        {
-            const titleMatch = movie.title.toLowerCase().includes(query);
-            
-            let genreMatch = false;
-            if (movie.genre_ids && movie.genre_ids.length > 0) {
-                const genreNames = movie.genre_ids.map(id => {
-                    const foundGenre = genres.find(genre => genre.id === id);
-                    return foundGenre ? foundGenre.name.toLowerCase() : '';
-                });
-                genreMatch = genreNames.some(name => name.includes(query));
+    function renderFilteredCards(query) {
+        const cards = resultContainer.querySelectorAll('.card');
+        cards.forEach(card => {
+            const title = card.getAttribute('data-title');
+            const genres = card.getAttribute('data-genres');
+            if ((title && title.includes(query)) || (genres && genres.includes(query))) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
-            
-            return titleMatch || genreMatch;
-        });
-
-        resultContainer.innerHTML = '';
-        filteredMovies.forEach(movie => 
-        {
-            const card = createCard(movie);
-            resultContainer.appendChild(card);
-        });
-    }
-
-    function renderFilteredSeries(query) {
-        const filteredSeries = allSeries.filter(series => {
-            const titleMatch = series.name.toLowerCase().includes(query);
-            let genreMatch = false;
-            if (series.genre_ids && series.genre_ids.length > 0) {
-                const genreNames = series.genre_ids.map(id => {
-                    const foundGenre = genres.find(genre => genre.id === id);
-                    return foundGenre ? foundGenre.name.toLowerCase() : '';
-                });
-                genreMatch = genreNames.some(name => name.includes(query));
-            }
-            return titleMatch || genreMatch;
-        });
-
-        resultContainer.innerHTML = '';
-        filteredSeries.forEach(series => {
-            const card = createCard(series, "series");
-            resultContainer.appendChild(card);
         });
     }
 
     searchBar.addEventListener('input', async () => 
     {
         const query = searchBar.value.toLowerCase();
-        renderFilteredMovies(query);
-        renderFilteredSeries(query);
+        renderFilteredCards(query);
     });
 
     searchBar.dispatchEvent(new Event('input'));
