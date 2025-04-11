@@ -9,3 +9,5 @@ export const apiMovie = async (page = 1) =>
     const data = await result.json();
     return data;
 };
+
+console.log(await apiMovie());

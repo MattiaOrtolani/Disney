@@ -23,7 +23,7 @@ export async function initSeriesFilter()
     }
 
     function createCard(series) {
-        const card = document.createElement("div");
+        const card = document.createElement("a");
         card.classList.add("card");
         card.setAttribute("data-id", series.id);
 
@@ -37,7 +37,7 @@ export async function initSeriesFilter()
         }
         card.setAttribute("data-genres", genreText);
 
-        const poster = document.createElement("div");
+        const poster = document.createElement("a");
         poster.classList.add("poster");
 
         if (series.backdrop_path) {

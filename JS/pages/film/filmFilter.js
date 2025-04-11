@@ -26,7 +26,7 @@ export async function initFilmFilter()
     }
 
     function createCard(movie) {
-        const card = document.createElement("div");
+        const card = document.createElement("a");
         card.classList.add("card");
         card.setAttribute("data-id", movie.id);
 

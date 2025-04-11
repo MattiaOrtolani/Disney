@@ -1,0 +1,141 @@
+@use '../../variables/color' as *;
+
+.information-container
+{
+    min-height: 100dvh;
+    width: 100vw;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    backdrop-filter: brightness(.1);
+    position: relative;
+
+    &::after
+    {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60vw;
+        height: 100%;
+        background: linear-gradient(to right, $black-color, transparent);
+        z-index: 2;
+    }
+
+    .information
+    {
+        width: 60rem;
+        position: relative;
+        padding: 7rem 6.8rem;
+        z-index: 3;
+
+        &__title
+        {
+            font-size: 6rem;
+            text-transform: uppercase;
+            text-align: center;
+            color: $white-color-2;
+            margin-bottom: 1.8rem;
+        }
+
+        .features-info
+        {
+            display: flex;
+            gap: .8rem;
+            margin-bottom: .5rem;
+            color: $white-color-2;
+
+            &__text
+            {
+                font-size: 1.8rem;
+                background-color: $grey-color-2;
+                padding: .2rem .3rem;
+                border-radius: 2px;
+            }
+        }
+
+        .technical-info
+        {
+            display: flex;
+            gap: .8rem;
+            align-items: center;
+            color: $white-color-2;
+
+            &__text
+            {
+                font-size: 1.4rem;
+            }
+        }
+
+        &__description
+        {
+            font-size: 2.2rem;
+            margin: 2.4rem 0;
+            color: $white-color-2;
+        }
+
+        .btn-container
+        {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            
+            &__button
+            {
+                height: 5.6rem;
+                border: none;
+                display: flex;
+                font-size: 1.8rem;
+                text-transform: uppercase;
+                align-items: center;
+                padding: 0 2.4rem;
+                background-color: $light-background-button;
+                color: $white-color;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all .2s;
+
+                &:hover
+                {
+                    background-color: lighten($light-background-button, 8%);
+                }
+
+                &:nth-child(1)
+                {
+                    display: flex;
+                    gap: .25rem;
+                    background-color: $white-color;
+                    color: $black-color;
+
+                    & svg
+                    {
+                        fill: $black-color;
+                        width: 2.4rem;
+                        height: 2.4rem;
+                    }
+                }
+
+                &:nth-child(2)
+                {
+                    margin: 0 2rem;
+                }
+
+                &:nth-child(3)
+                {
+                    height: 4.6rem;
+                    width: 4.6rem;
+                    border-radius: 100%;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+
+                    & svg
+                    {
+                        width: 2.4rem;
+                        height: 2.4rem;
+                    }
+                }
+            }
+        }
+    }
+}

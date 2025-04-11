@@ -32,8 +32,9 @@ export const liveSearch = async () =>
 
     function createCard(item) 
     {
-        const card = document.createElement('div');
+        const card = document.createElement('a');
         card.classList.add('card');
+        card.href = `../../../pages/information.html?id=${item.id}`;
         card.setAttribute('data-id', item.id);
         const titleText = (item.title || item.name || "Titolo non disponibile").toLowerCase();
         card.setAttribute('data-title', titleText);

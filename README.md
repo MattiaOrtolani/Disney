@@ -37,6 +37,10 @@
 
 ---
 
+implementare sistemi di controllo dell'errore con if, try catch e throw
+
+---
+
 DEMO: <a href="https://mattiaortolani.github.io/Disney/">CLICCA PER VISUALIZZARE</a>
 
 <p>Oppure scannerizza il QR code</p>

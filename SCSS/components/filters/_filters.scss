@@ -6,6 +6,11 @@
     min-height: calc(100dvh - 16rem - 7.2rem);
     background-color: $dark-grey-background;
 
+    & > .grid-result
+    {
+        padding: 0 6.8rem;
+    }
+
     &__title
     {
         color: $white-color;
