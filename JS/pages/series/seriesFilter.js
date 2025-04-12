@@ -37,7 +37,7 @@ export async function initSeriesFilter()
         }
         card.setAttribute("data-genres", genreText);
 
-        const poster = document.createElement("a");
+        const poster = document.createElement("div");
         poster.classList.add("poster");
 
         if (series.backdrop_path) {
