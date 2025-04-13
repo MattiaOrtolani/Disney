@@ -1,3 +1,3 @@
-import { liveSearch } from '../pages/search/searchBar.js';
+import { initSearchBar } from '../pages/search/searchBar.js';
 
-liveSearch();
+initSearchBar();

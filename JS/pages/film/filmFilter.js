@@ -5,19 +5,24 @@ export async function initFilmFilter()
 {
     const genreButtons = document.querySelectorAll(".layout__btn");
     const resultGrid = document.querySelector(".grid-result");
-    const totalPages = 32;
-    let genres = [];
+    let currentPage = 1;
+    let totalPages = 0;
 
-    genres = (await apiGenre()).genres;
+    const genres = (await apiGenre()).genres;
 
-    const data = await apiMovie(1);
-    const uniqueMovies = [];
-    const seenIds = new Set();
+    const initialData = await apiMovie(currentPage);
+    totalPages = initialData.total_pages;
+    loadPage(currentPage);
 
-    for (let page = 1; page <= totalPages; page++) {
+    async function loadPage(page) 
+    {
         const data = await apiMovie(page);
-        data.results.forEach(movie => {
-            if (!seenIds.has(movie.id)) {
+        const seenIds = new Set();
+
+        data.results.forEach(movie => 
+        {
+            if (!seenIds.has(movie.id)) 
+            {
                 seenIds.add(movie.id);
                 const card = createCard(movie);
                 resultGrid.appendChild(card);
@@ -25,27 +30,28 @@ export async function initFilmFilter()
         });
     }
 
-    function createCard(movie) {
+    function createCard(movie) 
+    {
         const card = document.createElement("a");
+        card.href  = `../../../pages/information.html?id=${movie.id}&type=movie`;
         card.classList.add("card");
         card.setAttribute("data-id", movie.id);
 
         const titleText = (movie.title || "Titolo non disponibile").toLowerCase();
         card.setAttribute("data-title", titleText);
-        let genreText = "";
-        if (movie.genre_ids && movie.genre_ids.length > 0) {
-            const genreNames = movie.genre_ids.map(id => {
-                const foundGenre = genres.find(genre => genre.id === id);
-                return foundGenre ? foundGenre.name.toLowerCase() : '';
-            }).filter(Boolean);
-            genreText = genreNames.join(' ');
-        }
+        const genreText = (movie.genre_ids || []).map(id => 
+        {
+            const foundGenre = genres.find(genre => genre.id === id);
+            return foundGenre ? foundGenre.name.toLowerCase() : '';
+        }).filter(Boolean).join(' ');
+        
         card.setAttribute("data-genres", genreText);
 
         const poster = document.createElement("div");
         poster.classList.add("poster");
 
-        if (movie.backdrop_path) {
+        if (movie.backdrop_path) 
+        {
             const img = document.createElement("img");
             img.src = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
             poster.appendChild(img);
@@ -56,8 +62,10 @@ export async function initFilmFilter()
         return card;
     }
 
-    function updateButtonStyles(activeButton) {
-        genreButtons.forEach((btn) => {
+    function updateButtonStyles(activeButton) 
+    {
+        genreButtons.forEach((btn) => 
+        {
             btn.style.backgroundColor = "rgb(45, 47, 53)";
             btn.style.color = "white";
         });
@@ -65,21 +73,36 @@ export async function initFilmFilter()
         activeButton.style.color = "black";
     }
 
-    genreButtons.forEach((button) => {
-        button.addEventListener("click", () => {
+    genreButtons.forEach((button) => 
+    {
+        button.addEventListener("click", () => 
+        {
             const genre = button.textContent.trim().toLowerCase();
             const cards = resultGrid.querySelectorAll(".card");
-            cards.forEach(card => {
+            cards.forEach(card => 
+            {
                 const genres = card.getAttribute("data-genres");
-                if (genre === "tutti i film" || (genres && genres.includes(genre))) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
+                card.style.display = (genre === "tutti i film" || (genres && genres.includes(genre))) ? "block" : "none";
             });
             updateButtonStyles(button);
         });
     });
 
     updateButtonStyles(genreButtons[0]);
+
+    const observerTarget = document.querySelector('.sentinel');
+    const observer = new IntersectionObserver(async (entries) => 
+    {
+        if (entries[0].isIntersecting && currentPage < totalPages) 
+        {
+            currentPage++;
+            await loadPage(currentPage);
+        }
+    }, 
+    {
+        rootMargin: "-100px",
+        threshold: 0
+    });
+
+    observer.observe(observerTarget);
 }

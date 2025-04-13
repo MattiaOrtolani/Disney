@@ -1,154 +1,91 @@
-import { apiMovie } from "../../api/apiMovie.js";
-import { apiGenre } from "../../api/apiGenre.js";
-import { apiSeries } from "../../api/apiSeries.js";
+import { apiMulti } from "../../api/apiMulti.js";
 
-export const liveSearch = async () => 
+export function initSearchBar() 
 {
-    await new Promise(resolve => 
-    {
-        if (document.readyState === "complete" || document.readyState === "interactive") 
-        {
-            resolve();
-        } else 
-        {
-            document.addEventListener('DOMContentLoaded', resolve);
-        }
-    });
+    const searchInput = document.querySelector('.search-container__search-bar');
+    const gridResult = document.querySelector('.grid-result');
 
-    const genres = (await apiGenre()).genres;
-    const totalPages = 32;
     let currentPage = 1;
+    let currentQuery = '';
+    let totalPages = 1;
     let isLoading = false;
-    let currentSeriesPage = 1;
+    let observer;
 
-    const searchBar = document.querySelector('.search-container__search-bar');
-    const resultContainer = document.querySelector('.grid-result');
-
-    if (!searchBar || !resultContainer) 
+    function createPosterElement(item) 
     {
-        console.error('Elementi della search bar o result non trovati.');
-        return;
+        if (!item.backdrop_path) return null;
+
+        const a = document.createElement('a');
+        a.classList.add('poster');
+        a.href = `../../../pages/information.html?id=${item.id}&type=${item.media_type}`;
+        a.style.backgroundImage = `url(https://image.tmdb.org/t/p/w300${item.backdrop_path})`;
+        a.style.backgroundSize = 'cover';
+        a.style.backgroundPosition = 'center';
+
+        return a;
     }
 
-    function createCard(item) 
+    async function loadResults(query, page = 1) 
     {
-        const card = document.createElement('a');
-        card.classList.add('card');
-        card.href = `../../../pages/information.html?id=${item.id}`;
-        card.setAttribute('data-id', item.id);
-        const titleText = (item.title || item.name || "Titolo non disponibile").toLowerCase();
-        card.setAttribute('data-title', titleText);
-        let genreText = "";
-        if (item.genre_ids && item.genre_ids.length > 0) {
-            const genreNames = item.genre_ids.map(id => {
-                const foundGenre = genres.find(genre => genre.id === id);
-                return foundGenre ? foundGenre.name.toLowerCase() : '';
-            }).filter(Boolean);
-            genreText = genreNames.join(' ');
-        }
-        card.setAttribute('data-genres', genreText);
+        if (isLoading || (page > totalPages)) return;
+        isLoading = true;
+        const data = await apiMulti(query, page);
 
-        const poster = document.createElement('div');
-        poster.classList.add('poster');
-        if (item.backdrop_path) 
+        currentPage = data.page;
+        totalPages = data.total_pages;
+
+        data.results.forEach(item => 
         {
-            const img = document.createElement('img');
-            img.src = 'https://image.tmdb.org/t/p/w500' + item.backdrop_path;
-            poster.appendChild(img);
-        }
-
-        const titleEl = document.createElement('h1');
-        titleEl.textContent = item.title || item.name || "Titolo non disponibile";
-
-        const cardInfo = document.createElement('div');
-        cardInfo.classList.add('card__info');
-
-        const pEta = document.createElement('p');
-        pEta.classList.add('card__info--text');
-        pEta.textContent = item.adult ? "18+" : "10+";
-
-        const pAnno = document.createElement('p');
-        pAnno.classList.add('card__info--text');
-        const date = item.release_date || item.first_air_date;
-        pAnno.textContent = date ? date.slice(0, 4) : "Anno non disponibile";
-
-        const pGeneri = document.createElement('p');
-        pGeneri.classList.add('card__info--text');
-        if (item.genre_ids && item.genre_ids.length > 0) {
-            const genreNames = item.genre_ids.map(id => {
-                const foundGenre = genres.find(genre => genre.id === id);
-                return foundGenre ? foundGenre.name : '';
-            }).filter(name => name !== '');
-            pGeneri.textContent = genreNames.length > 0 ? genreNames.join(', ') : "Genere non disponibile";
-        } else {
-            pGeneri.textContent = "Genere non disponibile";
-        }
-
-        cardInfo.appendChild(pEta);
-        cardInfo.appendChild(pAnno);
-        cardInfo.appendChild(pGeneri);
-
-        card.appendChild(poster);
-        card.appendChild(titleEl);
-        card.appendChild(cardInfo);
-
-        return card;
-    }
-
-    async function loadMoreMovies() {
-        if (isLoading || currentPage > totalPages) return;
-        isLoading = true;
-        const data = await apiMovie(currentPage);
-        data.results.forEach(item => {
-            if (!resultContainer.querySelector(`.card[data-id="${item.id}"]`)) {
-                const card = createCard(item);
-                resultContainer.appendChild(card);
-            }
+            const el = createPosterElement(item);
+            if (el) gridResult.appendChild(el);
         });
-        currentPage++;
+
         isLoading = false;
     }
 
-    async function loadMoreSeries() {
-        if (isLoading || currentSeriesPage > totalPages) return;
-        isLoading = true;
-        const data = await apiSeries(currentSeriesPage);
-        data.results.forEach(item => {
-            if (!resultContainer.querySelector(`.card[data-id="${item.id}"]`)) {
-                const card = createCard(item);
-                resultContainer.appendChild(card);
-            }
-        });
-        currentSeriesPage++;
-        isLoading = false;
-    }
-
-    while (currentPage <= totalPages) {
-        await loadMoreMovies();
-    }
-
-    while (currentSeriesPage <= totalPages) {
-        await loadMoreSeries();
-    }
-
-    function renderFilteredCards(query) {
-        const cards = resultContainer.querySelectorAll('.card');
-        cards.forEach(card => {
-            const title = card.getAttribute('data-title');
-            const genres = card.getAttribute('data-genres');
-            if ((title && title.includes(query)) || (genres && genres.includes(query))) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    searchBar.addEventListener('input', async () => 
+    let debounceTimer;
+    searchInput.addEventListener('input', (e) => 
     {
-        const query = searchBar.value.toLowerCase();
-        renderFilteredCards(query);
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => 
+        {
+            const query = e.target.value.trim();
+            gridResult.innerHTML = '';
+            currentPage = 1;
+            currentQuery = query;
+            if (query.length > 0) 
+            {
+                loadResults(query, 1);
+            }
+        }, 500);
     });
 
-    searchBar.dispatchEvent(new Event('input'));
-};
+    function createObserver() 
+    {
+        if (observer) observer.disconnect();
+
+        observer = new IntersectionObserver(entries => 
+        {
+            entries.forEach(entry => 
+            {
+                if (entry.isIntersecting && currentQuery && currentPage < totalPages) 
+                {
+                    const { scrollHeight, scrollTop, clientHeight } = gridResult;
+                    if (scrollHeight - scrollTop - clientHeight < 200) 
+                    {
+                        loadResults(currentQuery, currentPage + 1);
+                    }
+                }
+            });
+        }, 
+        {
+            root: null,
+            rootMargin: '200px',
+            threshold: 0
+        });
+
+        observer.observe(gridResult);
+    }
+
+    createObserver();
+}
