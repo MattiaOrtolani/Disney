@@ -100,7 +100,7 @@ export async function initFilmFilter()
         }
     }, 
     {
-        rootMargin: "-100px",
+        rootMargin: "0px",
         threshold: 0
     });
 

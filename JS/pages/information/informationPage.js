@@ -74,6 +74,7 @@ export async function initInformationPage()
     const grid = document.querySelector('.grid-result');
     if (grid && data.genres)
     {
+        const seenIds = new Set();
         const targetGenres = data.genres.map(g => g.id);
         let currentMoviePage = 1;
         let currentSeriesPage = 1;
@@ -84,14 +85,13 @@ export async function initInformationPage()
             return itemGenres.some(id => targetGenres.includes(id));
         }
 
-        function createPosterCard(item)
+        function createPosterCard(item, type)
         {
             if (!item.backdrop_path || item.id === data.id) return null;
 
             const link = document.createElement('a');
             link.classList.add('poster');
-            const linkType = item.media_type === 'movie' ? 'movie' : 'tv';
-            link.href = `../../../pages/information.html?id=${item.id}&type=${linkType}`;
+            link.href = `../../../pages/information.html?id=${item.id}&type=${type}`;
             link.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`;
             link.style.backgroundSize = 'cover';
             link.style.display = 'block';
@@ -99,87 +99,44 @@ export async function initInformationPage()
             return link;
         }
 
-        const sentinel = document.querySelector('.sentinel');
-        const observer = new IntersectionObserver(async (entries) =>
+        const infoContainer = document.querySelector('.information-container');
+        if (infoContainer)
         {
-            if (entries[0].isIntersecting && !isLoading)
+            let overlay = document.createElement('div');
+            overlay.classList.add('information-overlay');
+            overlay.style.position = 'absolute';
+            overlay.style.inset = 0;
+            overlay.style.zIndex = 1;
+            overlay.style.backgroundColor = 'black';
+            overlay.style.opacity = '0.15';
+            infoContainer.appendChild(overlay);
+
+            window.addEventListener('scroll', () =>
             {
-                isLoading = true;
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const scrollFraction = Math.min(scrollTop / window.innerHeight, 1);
+                overlay.style.opacity = `${0.1 + (0.65 * scrollFraction)}`;
+            });
+        }
 
-                if (currentMoviePage < totalMoviePages)
-                {
-                    currentMoviePage++;
-                    const movieData = await apiMovie(currentMoviePage);
-                    for (const item of movieData.results)
-                    {
-                        if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids))
-                        {
-                            const card = createPosterCard(item);
-                            if (card) grid.appendChild(card);
-                        }
-                    }
-                }
-
-                const seriesData = await apiSeries(currentSeriesPage);
-                currentSeriesPage++;
-                for (const item of seriesData.results)
-                {
-                    if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids))
-                    {
-                        const card = createPosterCard(item);
-                        if (card) grid.appendChild(card);
-                    }
-                }
-                isLoading = false;
-            }
-        }, 
+        const movieData = await apiMovie(1);
+        for (const item of movieData.results)
         {
-            rootMargin: '-200px',
-            threshold: 0
-        });
-
-        observer.observe(sentinel);
-
-        (async () =>
-        {
-            const movieData = await apiMovie(currentMoviePage);
-            for (const item of movieData.results)
+            if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids))
             {
-                if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids))
-                {
-                    const card = createPosterCard(item);
-                    if (card) grid.appendChild(card);
-                }
+                const card = createPosterCard(item, 'movie');
+                if (card) grid.appendChild(card);
             }
-            const seriesData = await apiSeries(currentSeriesPage);
-            for (const item of seriesData.results)
-            {
-                if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids))
-                {
-                    const card = createPosterCard(item);
-                    if (card) grid.appendChild(card);
-                }
-            }
-        })();
-    }
+        }
 
-    const infoContainer = document.querySelector('.information-container');
-    if (infoContainer)
-    {
-        let overlay = document.createElement('div');
-        overlay.classList.add('information-overlay');
-        overlay.style.position = 'absolute';
-        overlay.style.inset = 0;
-        overlay.style.zIndex = 1;
-        overlay.style.backgroundColor = 'black';
-        overlay.style.opacity = '0.15';
-        infoContainer.appendChild(overlay);
-
-        window.addEventListener('scroll', () =>
+        const seriesData = await apiSeries(1);
+        for (const item of seriesData.results)
         {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const scrollFraction = Math.min(scrollTop / window.innerHeight, 1);
-            overlay.style.opacity = `${0.15 + (0.65 * scrollFraction)}`;
-        });
+            if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids))
+            {
+                const card = createPosterCard(item, 'tv');
+                if (card) grid.appendChild(card);
+            }
+        }
     }
 }

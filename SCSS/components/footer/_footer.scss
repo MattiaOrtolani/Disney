@@ -16,7 +16,6 @@
         @media only screen and (max-width: 570px)
         {
             height: 3.8rem;
-            
         }
     }
 
@@ -26,17 +25,21 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        margin-top: 1.5rem;
         font-weight: lighter;
 
         &__link
         {
             width: calc(max-content + 2rem);
-            margin: 1.1rem .1rem;
+            margin: 1.1rem .5rem;
             padding: .1rem .6rem;
             text-decoration: none;
             color: $white-color;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
+
+            @media only screen and (max-width: 776px)
+            {
+                margin: 1.1rem .1rem;
+            }
         }
     }
 

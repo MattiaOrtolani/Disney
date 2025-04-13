@@ -50,6 +50,18 @@
             position: relative;
             margin: 0 1.25vw;
             transition: all .3s;
+
+            &::after
+            {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                width: 66.66%;
+                height: 100%;
+                background-image: linear-gradient(to right, rgba($black-color, .6), transparent);
+            }
             
             & img
             {
@@ -57,21 +69,16 @@
                 height: 100%;
             }
 
-            & div
+            & h1
             {
+                width: 44%;
                 position: absolute;
-                top: 0;
-                left: 0;
-                background-color: rgba(255, 255, 255, 0.3);
-                backdrop-filter: blur(5px);
-                display: flex;
-                align-items: center;
+                top: 2rem;
+                left: 2rem;
                 padding: .5rem;
-                border-bottom-right-radius: 5px;
-
-                &, h1, p{color: $black-color;}
-                &, h1{font-size: 4rem;}
-                &, p{font-size: 2rem; padding-left: 1rem;}
+                font-size: 7rem;
+                color: $white-color;
+                z-index: 4;
             }
 
             &:hover

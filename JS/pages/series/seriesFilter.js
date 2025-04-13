@@ -95,7 +95,7 @@ export async function initSeriesFilter()
         }
     }, 
     {
-        rootMargin: '-100px',
+        rootMargin: '0px',
         threshold: 0
     });
 
