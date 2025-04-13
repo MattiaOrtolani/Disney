@@ -1,0 +1,96 @@
+@use '../../variables/color' as *;
+
+.getapp-container
+{
+    height: min-content;
+    background-color: $light-background-button;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    &__logo
+    {
+        padding-top: 4.5rem;
+
+        @media only screen and (min-width: 400px)
+        {
+            height: 12.5rem;
+        }
+    }
+
+    &__signout
+    {
+        color: $white-color;
+        padding: .1rem .6rem;
+        font-size: 1.4rem;
+        position: absolute;
+        top: 6rem;
+        right: 2rem;
+    }
+
+    &__title
+    {
+        color: $white-color;
+        font-size: 2.3rem;
+        margin-top: 3.5rem;
+        font-weight: 400;
+        text-align: center;
+
+        @media only screen and (min-width: 571px)
+        {
+            font-size: 3.3rem;
+        }
+    }
+
+    &__phone
+    {
+        height: 12rem;
+        margin: 7rem 4.5rem 5rem 4.5rem;
+
+        @media only screen and (max-width: 400px)
+        {
+            height: 9rem;
+        }
+
+        @media only screen and (min-width: 571px)
+        {
+            height: 17rem;
+        }
+    }
+
+    &__subtitle
+    {
+        font-size: 2rem;
+        color: $white-color;
+        margin: 0 3.1rem;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    &__appstore
+    {
+        margin: 2.4rem 0 3.6rem 0;
+    }
+
+    .link-container
+    {
+        height: min-content;
+        max-width: 37.4rem;
+        width: calc(100vw - 3.2rem);
+        border-top: solid 1px $grey-color-2;
+        padding: 0 5.7rem;
+        padding: 1.6rem 0 13.2rem 0;
+        display: flex;
+        flex-direction: column;
+
+        &__link
+        {
+            color: $link-color;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: lighter;
+            margin-bottom: .8rem;
+        }
+    }
+}
