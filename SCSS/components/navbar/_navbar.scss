@@ -56,10 +56,62 @@
                 }
             }
 
+            &:last-child
+            {
+                display: none;
+
+                &:hover .button__container
+                {    
+                    display: flex;   
+                }
+
+                @media only screen and (max-width: 756px)
+                {
+                    display: block;
+                    padding: 30px 40px 30px 10px;
+                    
+
+                    &::after
+                    {
+                        display: none;
+                    }
+                }
+            }
+
             &:visited
             {
                 color: $white-color;
                 text-decoration: none;
+            }
+
+            &:hover
+            {
+
+                .button__text::after
+                {
+                    width: 100%;
+
+                    @media only screen and (max-width: 756px)
+                    {
+                        width: 0%;
+                    }
+                }
+                
+                @media (max-width: 1440px)
+                {
+                    &::after
+                    {
+                        width: 100%;
+                    }
+                }
+            }
+
+            @media (max-width: 1440px)
+            {
+                &
+                {
+                    padding: 0 5px;
+                }
             }
 
             &__icon
@@ -100,30 +152,84 @@
                 }
             }
 
-            &:hover
+            &__dot
             {
-                .button__text::after
+                height: 2px;
+                width: 2px;
+                background-color: $white-color;
+                position: relative;
+
+                &::before
                 {
-                    width: 100%;
+                    content: '';
+                    position: absolute;
+                    top: -5px;
+                    left: 0;
+                    width: 2px;
+                    height: 2px;
+                    background-color: $white-color;
+                    transition: all .2s;
                 }
-                
-                
-                @media (max-width: 1440px)
+
+                &::after
                 {
-                    &::after
+                    content: '';
+                    position: absolute;
+                    top: 5px;
+                    left: 0;
+                    width: 2px;
+                    height: 2px;
+                    background-color: $white-color;
+                    transition: all .2s;
+                }
+            }
+
+            &__container
+            {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                gap: 15px;
+                top: 50px;
+                height: min-content;
+                width: min-content;
+                border: solid 1px $grey-border-color;
+                background-color: $black-color;
+                padding: 7px 5px;
+
+                .button-hover
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    padding-left: 5px;
+                    text-decoration: none;
+
+                    &:hover
                     {
-                        width: 100%;
+                        .button__text::after
+                        {
+                            width: 100%;
+                        }
+                    }
+
+                    & > .button__text
+                    {
+                        display: block;
+                        margin-left: 5px;
                     }
                 }
             }
 
-            @media (max-width: 1440px)
+            @media only screen and (max-width: 756px)
             {
-                &
+                @for $i from 5 through 7
                 {
-                    padding: 0 5px;
+                    &:nth-child(#{$i})
+                    {
+                        display: none;
+                    }
                 }
-                
             }
         }
     }
@@ -178,6 +284,11 @@
                 color: $white-color;
                 margin-right: 2.5rem;
                 font-size: 1.4rem;
+
+                @media only screen and (max-width: 1440px)
+                {
+                    display: none;
+                }
             }
     
             &__photo
