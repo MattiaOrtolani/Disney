@@ -264,6 +264,7 @@ body {
   margin-bottom: 6rem;
   position: sticky;
   top: 7.2rem;
+  z-index: 999;
 }
 .search-container .search-bar__text-box {
   width: 100%;
@@ -273,7 +274,6 @@ body {
   padding-left: 9rem;
   font-size: 3rem;
   color: whitesmoke;
-  z-index: 9998;
 }
 .search-container .search-bar__text-box::placeholder {
   font-size: 3rem;
@@ -295,7 +295,7 @@ body {
   background-color: transparent;
   border: none;
   position: absolute;
-  z-index: 9998;
+  z-index: 999;
   padding: 1rem;
   display: none;
 }
@@ -548,7 +548,12 @@ body {
   padding-left: 3.6rem;
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 9997;
+}
+@media only screen and (max-width: 767px) {
+  .navbar {
+    padding: 0 0 0 2rem;
+  }
 }
 .navbar__left-containter {
   height: 5.6rem;
@@ -559,6 +564,12 @@ body {
   height: 4.8rem;
   width: 8.6rem;
   margin-right: 5.2rem;
+}
+@media only screen and (max-width: 767px) {
+  .navbar__left-containter--logo {
+    width: 6.8rem;
+    height: 3.8rem;
+  }
 }
 .navbar__left-containter .button {
   height: 1rem;
@@ -591,7 +602,7 @@ body {
 .navbar__left-containter .button:last-child:hover .button__container {
   display: flex;
 }
-@media only screen and (max-width: 756px) {
+@media only screen and (max-width: 767px) {
   .navbar__left-containter .button:last-child {
     display: block;
     padding: 30px 40px 30px 10px;
@@ -607,7 +618,7 @@ body {
 .navbar__left-containter .button:hover .button__text::after {
   width: 100%;
 }
-@media only screen and (max-width: 756px) {
+@media only screen and (max-width: 767px) {
   .navbar__left-containter .button:hover .button__text::after {
     width: 0%;
   }
@@ -685,12 +696,12 @@ body {
   flex-direction: column;
   position: absolute;
   gap: 15px;
-  top: 50px;
+  top: 55px;
   height: min-content;
   width: min-content;
   border: solid 1px rgb(60, 60, 60);
   background-color: black;
-  padding: 7px 5px;
+  padding: 12px 43px 12px 15px;
 }
 .navbar__left-containter .button__container .button-hover {
   display: flex;
@@ -706,7 +717,7 @@ body {
   display: block;
   margin-left: 5px;
 }
-@media only screen and (max-width: 756px) {
+@media only screen and (max-width: 767px) {
   .navbar__left-containter .button:nth-child(5) {
     display: none;
   }
@@ -724,14 +735,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: end;
   padding: 0 2rem;
   border: solid 1px transparent;
+  position: absolute;
+  right: 0;
+  z-index: 9999;
 }
 .navbar__right-containter:hover {
   border: solid 1px rgb(60, 60, 60);
   border-bottom: none;
   border-top: none;
+  background-color: black;
 }
 .navbar__right-containter:hover .menu {
   height: 49.8rem;
@@ -744,6 +758,16 @@ body {
 .navbar__right-containter:hover .menu__option {
   opacity: 1;
   filter: brightness(1);
+}
+@media only screen and (max-width: 767px) {
+  .navbar__right-containter:hover .menu {
+    height: min-content;
+  }
+}
+@media only screen and (max-width: 1440px) {
+  .navbar__right-containter:hover .profile__name {
+    display: block;
+  }
 }
 .navbar__right-containter .profile {
   width: 100%;
@@ -766,6 +790,12 @@ body {
   height: 4.8rem;
   width: 4.8rem;
   border-radius: 50%;
+}
+@media only screen and (max-width: 767px) {
+  .navbar__right-containter .profile__photo {
+    height: 3.6rem;
+    width: 3.6rem;
+  }
 }
 .navbar__right-containter .menu {
   width: 24rem;
@@ -807,6 +837,12 @@ body {
   border-radius: 50%;
   margin-right: 2rem;
 }
+@media only screen and (max-width: 767px) {
+  .navbar__right-containter .menu .guest__photo {
+    height: 3.6rem;
+    width: 3.6rem;
+  }
+}
 .navbar__right-containter .menu .guest__name {
   color: rgb(150, 150, 150);
   margin-right: 2.5rem;
@@ -823,6 +859,12 @@ body {
   justify-content: center;
   align-items: center;
 }
+@media only screen and (max-width: 767px) {
+  .navbar__right-containter .menu .guest__add {
+    height: 3.6rem;
+    width: 3.6rem;
+  }
+}
 .navbar__right-containter .menu__option {
   color: rgb(150, 150, 150);
   font-size: 1.4rem;
@@ -833,6 +875,11 @@ body {
 }
 .navbar__right-containter .menu__option:hover {
   color: whitesmoke;
+}
+@media only screen and (max-width: 767px) {
+  .navbar__right-containter .menu__option:last-child {
+    margin-bottom: 20px;
+  }
 }
 
 .footer {
