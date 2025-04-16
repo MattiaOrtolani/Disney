@@ -21,12 +21,13 @@ export function leftBtnSlide()
         if (position > -181.25)
         {
             position = -551.25;
-            resetCarousel();
             index = 4;
+            resetCarousel(0);
         }
         else
         {
-            updateIndex(--index);
+            index--;
+            updateIndex(index, index+1);
         }
     });
 }
@@ -44,17 +45,18 @@ export function rightBtnSlide()
         if (position < -642.75)
         {
             position = -181.25;
-            resetCarousel();
             index = 0;
+            resetCarousel(4);
         }
         else
         {
-            updateIndex(index++);
+            index++;
+            updateIndex(index, index-1);
         }
     });
 }
 
-function resetCarousel()
+function resetCarousel(lastIndex)
 {
     setTimeout(() =>
     {
@@ -65,14 +67,15 @@ function resetCarousel()
         carousel.classList.remove("no-transition");
         canClick = true;
     }, 600);
-    carouselIndex[index].style.backgroundColor = 'rgb(150, 150, 150)';
+    carouselIndex[lastIndex].style.backgroundColor = 'rgb(150, 150, 150)';
     carouselIndex[index].style.backgroundColor = 'white';
 }
 
-function updateIndex(newIndex)
+function updateIndex(newIndex, prevIndex)
 {
-    carouselIndex[index].style.backgroundColor = 'rgb(150, 150, 150)';
+    carouselIndex[prevIndex].style.backgroundColor = 'rgb(150, 150, 150)';
     carouselIndex[newIndex].style.backgroundColor = 'white';
+    index = newIndex;
     setTimeout(() => {
         canClick = true;
     }, 600);

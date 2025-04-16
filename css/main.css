@@ -79,6 +79,11 @@ body {
   align-items: center;
   transition: all 0.6s;
 }
+@media only screen and (max-width: 480px) {
+  .carosello-container .carosello {
+    height: 99.79vw;
+  }
+}
 .carosello-container .carosello__banner {
   height: 92%;
   min-width: 90vw;
@@ -88,6 +93,11 @@ body {
   position: relative;
   margin: 0 1.25vw;
   transition: all 0.3s;
+}
+@media only screen and (max-width: 480px) {
+  .carosello-container .carosello__banner {
+    min-width: 80vw;
+  }
 }
 .carosello-container .carosello__banner::after {
   content: "";
@@ -109,12 +119,12 @@ body {
   top: 2rem;
   left: 2rem;
   padding: 0.5rem;
-  font-size: 7rem;
+  font-size: 5vw;
   color: whitesmoke;
   z-index: 4;
 }
 .carosello-container .carosello__banner:hover {
-  border: solid 3px whitesmoke;
+  outline: solid 3px whitesmoke;
 }
 
 .carosello-index {
