@@ -32,13 +32,13 @@ export async function initInformationPage()
         container.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${data.backdrop_path})`;
     }
 
-    const titleElement = document.querySelector('.information__title');
+    const titleElement = document.querySelector('.information-box__title');
     if (titleElement)
     {
         titleElement.textContent = data.title || data.name || "Titolo non disponibile";
     }
 
-    const descriptionElement = document.querySelector('.information__description');
+    const descriptionElement = document.querySelector('.information-box__description');
     if (descriptionElement)
     {
         descriptionElement.textContent = data.overview || "Descrizione non disponibile.";
@@ -74,11 +74,7 @@ export async function initInformationPage()
     const grid = document.querySelector('.grid-result');
     if (grid && data.genres)
     {
-        const seenIds = new Set();
         const targetGenres = data.genres.map(g => g.id);
-        let currentMoviePage = 1;
-        let currentSeriesPage = 1;
-        let isLoading = false;
 
         function hasCommonGenres(itemGenres)
         {
@@ -95,7 +91,6 @@ export async function initInformationPage()
             link.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`;
             link.style.backgroundSize = 'cover';
             link.style.display = 'block';
-            link.style.aspectRatio = '16/9';
             return link;
         }
 

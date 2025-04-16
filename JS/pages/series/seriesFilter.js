@@ -30,10 +30,10 @@ export async function initSeriesFilter()
 
     function createCard(series) 
     {
-        const card = document.createElement("a");
-        card.href  = `../../../pages/information.html?id=${series.id}&type=tv`;
-        card.classList.add("card");
-        card.setAttribute("data-id", series.id);
+        const poster = document.createElement("a");
+        poster.href  = `../../../pages/information.html?id=${series.id}&type=tv`;
+        poster.classList.add("poster");
+        poster.setAttribute("data-id", series.id);
 
         let genreText = "";
         if (series.genre_ids && series.genre_ids.length > 0) 
@@ -45,21 +45,15 @@ export async function initSeriesFilter()
             }).filter(Boolean);
             genreText = genreNames.join(' ');
         }
-        card.setAttribute("data-genres", genreText);
-
-        const poster = document.createElement("div");
-        poster.classList.add("poster");
+        poster.setAttribute("data-genres", genreText);
 
         if (series.backdrop_path) 
         {
-            const img = document.createElement("img");
-            img.src = "https://image.tmdb.org/t/p/w500" + series.backdrop_path;
-            poster.appendChild(img);
+            poster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${series.backdrop_path})`;
+            poster.style.backgroundSize = "cover";
         }
 
-        card.appendChild(poster);
-
-        return card;
+        return poster;
     }
 
     genreButtons.forEach((button) => 

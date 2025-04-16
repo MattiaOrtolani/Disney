@@ -32,34 +32,24 @@ export async function initFilmFilter()
 
     function createCard(movie) 
     {
-        const card = document.createElement("a");
-        card.href  = `../../../pages/information.html?id=${movie.id}&type=movie`;
-        card.classList.add("card");
-        card.setAttribute("data-id", movie.id);
+        const poster = document.createElement("a");
+        poster.href  = `../../../pages/information.html?id=${movie.id}&type=movie`;
+        poster.classList.add("poster");
+        poster.setAttribute("data-id", movie.id);
+        poster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+        poster.style.backgroundSize = "cover";
 
         const titleText = (movie.title || "Titolo non disponibile").toLowerCase();
-        card.setAttribute("data-title", titleText);
+        poster.setAttribute("data-title", titleText);
         const genreText = (movie.genre_ids || []).map(id => 
         {
             const foundGenre = genres.find(genre => genre.id === id);
             return foundGenre ? foundGenre.name.toLowerCase() : '';
         }).filter(Boolean).join(' ');
         
-        card.setAttribute("data-genres", genreText);
+        poster.setAttribute("data-genres", genreText);
 
-        const poster = document.createElement("div");
-        poster.classList.add("poster");
-
-        if (movie.backdrop_path) 
-        {
-            const img = document.createElement("img");
-            img.src = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
-            poster.appendChild(img);
-        }
-
-        card.appendChild(poster);
-
-        return card;
+        return poster;
     }
 
     function updateButtonStyles(activeButton) 
@@ -78,7 +68,7 @@ export async function initFilmFilter()
         button.addEventListener("click", () => 
         {
             const genre = button.textContent.trim().toLowerCase();
-            const cards = resultGrid.querySelectorAll(".card");
+            const cards = resultGrid.querySelectorAll(".poster");
             cards.forEach(card => 
             {
                 const genres = card.getAttribute("data-genres");

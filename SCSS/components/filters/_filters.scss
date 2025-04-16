@@ -6,11 +6,6 @@
     min-height: calc(100dvh - 16rem - 7.2rem);
     background-color: $dark-grey-background;
 
-    & > .grid-result
-    {
-        padding: 0 6.8rem;
-    }
-
     &__title
     {
         color: $white-color;
@@ -27,8 +22,18 @@
         {
             width: max-content;
             overflow-x: auto;
-            margin-left: 6.8rem;
+            margin-left: 8rem;
             margin-bottom: 4rem;
+
+            @media only screen and (max-width: 1440px)
+            {
+                margin-left: 7rem;
+            }
+
+            @media only screen and (max-width: 756px)
+            {
+                margin-left: 5rem;
+            }
 
             &__btn
             {
