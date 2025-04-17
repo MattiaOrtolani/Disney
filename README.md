@@ -1,47 +1,46 @@
-# ricerca:
+<div align="center" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364); min-height: min-content;" id="home">
+    <img src="assets/md-img/markdown-logo.png" width="300px">
+</div>
 
-- migliorare la ricerca, quando vuota mostrare elementi generici 
-- implementarla esattamente tale e quale ma per le serie
+<br>
 
----
-
-# pagina film:
-
-- barra di ricerca basata su filtri
-- mostrare in generale i film
-
----
-
-# pagina serie: 
-
-- barra di ricerca basata su filtri
-- mostrare in generale le serie
+<nav style="display: flex; gap: 30px; flex-wrap: wrap;">
+    <a href="#demo" style="text-decoration: none; color: #8efeff;">DEMO</a>
+    <a href="#demo" style="text-decoration: none; color: #8efeff;">STRUMENTI</a>
+</nav>
 
 ---
 
-# responsive:
+<div align="center" id="#strumenti">
+    <h1 id="demo" style="color: #60efff;">Strumenti e Linguaggi</h1>
+</div>
 
-- modificare la dimensione del poster in base alla larghezza della pagina, portandolo ad una dimensione maggiore
+<div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; margin-bottom: 30px">
+    <div style="display: flex; align-items: center; height: 110px; gap: 10px;">
+        <img src="assets/md-img/html-logo.webp" style="width: auto; height: 100px;">
+        <p style="font-size: 35px">Html</p>
+    </div>
+    <div style="display: flex; align-items: center; height: 110px; gap: 10px;">
+        <img src="assets/md-img/sass-logo.png" style="width: auto; height: 100px;">
+        <p style="font-size: 35px">Sass</p>
+    </div>
+    <div style="display: flex; align-items: center; height: 110px; gap: 10px;">
+        <img src="assets/md-img/typescript-logo.png" style="width: auto; height: 100px;">
+        <p style="font-size: 35px">Typescript</p>
+    </div>
+</div>
 
-- nella pagina search cambiare il numero di colonne in proporzione alla grandezza delle card
-
-**per tutto ciò controllare i brackpoints direttamente dal sito di disney+**
-
-- eliminare dalla navbar i nomi affinaco alle icone lasciando solamente le icone, aliminare alcune icone in eccesso e spostarle in quel mini menù con 3 pallini verticali (gli ultimi 3 dovranno essere ricreati per replicarne lo stile)
+<a href="#home" style="text-decoration: none; color: #8efeff;">&uarr; Torna su &uarr;</a>
 
 ---
 
-# home: 
-
-- aggiungere altri poster per renderla leggermente più lunga
-
----
-
-implementare sistemi di controllo dell'errore con if, try catch e throw
-
----
+<div align="center">
+    <h1 id="demo" style="color: #60efff;">Demo</h1>
+</div>
 
 DEMO: <a href="https://disneypp.netlify.app/">CLICCA PER VISUALIZZARE</a>
 
 <p>Oppure scannerizza il QR code</p>
-<img src="assets/img/qr.png" width="200px">
+<img src="assets/md-img/qr.png" width="200px">
+
+<a href="#home" style="text-decoration: none; color: #8efeff;">&uarr; Torna su &uarr;</a>

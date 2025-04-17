@@ -3,7 +3,7 @@
 
 .new-film
 {
-    height: 25rem;
+    height:  max-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,7 +20,13 @@
     {
         font-size: 1.8rem;
         color: $white-color;
-        padding-left: 5rem;
+        padding-left: 6rem;
+        margin-bottom: 1rem;
+
+        @media only screen and (max-width: 480px)
+        {
+            padding-left: 2rem;
+        }
     }
 
     .film-carosello
@@ -34,11 +40,15 @@
     .continaer-slide
     {
         width: max-content;
-        height: 22.2rem;
+        height: max-content;
         display: flex;
         align-items: center;
         padding: 0 5rem;
-        gap: 2.2rem;
         overflow-x: auto;
+
+        @media only screen and (max-width: 480px)
+        {
+            padding: 0 1rem;
+        }
     }
 }
