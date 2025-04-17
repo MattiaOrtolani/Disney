@@ -1,5 +1,6 @@
 @use '../../variables/color' as *;
 
+
 .information-container
 {
     min-height: 100dvh;
@@ -8,6 +9,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
+    overscroll-behavior-y: none;
 
     .background-container
     {
@@ -47,8 +49,8 @@
 
     .information
     { 
-        position: relative;    
-        top: 0;    
+        position: relative;
+        top: 0;
         z-index: 3;
         padding: 7rem 0;
         margin: 0 7.1rem;

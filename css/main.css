@@ -13,6 +13,7 @@ html {
 body {
   min-height: 100dvh;
   background-color: black;
+  overscroll-behavior-y: none;
 }
 
 .no-transition {
@@ -357,6 +358,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
+  overscroll-behavior-y: none;
 }
 .information-container .background-container {
   position: fixed;

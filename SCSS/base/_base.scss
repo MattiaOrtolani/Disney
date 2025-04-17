@@ -18,4 +18,5 @@ body
 {
     min-height: 100dvh;
     background-color: $black-color;
+    overscroll-behavior-y: none;
 }
