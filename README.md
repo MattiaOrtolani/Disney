@@ -5,14 +5,14 @@
 <br>
 
 <nav style="display: flex; gap: 30px; flex-wrap: wrap;">
-    <a href="#demo" style="text-decoration: none; color: #8efeff;">DEMO</a>
+    <a href="#demo" style="text-decoration: none; color: #8efeff;">PREVIEW</a>
     <a href="#demo" style="text-decoration: none; color: #8efeff;">STRUMENTI</a>
 </nav>
 
 ---
 
 <div align="center" id="#strumenti">
-    <h1 id="demo" style="color: #60efff;">Strumenti e Linguaggi</h1>
+    <h1 id="demo" style="color: #60efff;">Strumenti e Linguaggi impiegati</h1>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; margin-bottom: 30px">
@@ -25,8 +25,8 @@
         <p style="font-size: 35px">Sass</p>
     </div>
     <div style="display: flex; align-items: center; height: 110px; gap: 10px;">
-        <img src="assets/md-img/typescript-logo.png" style="width: auto; height: 100px;">
-        <p style="font-size: 35px">Typescript</p>
+        <img src="assets/md-img/javascript-logo.png" style="width: auto; height: 100px;">
+        <p style="font-size: 35px">Javascript</p>
     </div>
 </div>
 
@@ -35,12 +35,12 @@
 ---
 
 <div align="center">
-    <h1 id="demo" style="color: #60efff;">Demo</h1>
+    <h1 id="demo" style="color: #60efff;">Preview</h1>
 </div>
 
-DEMO: <a href="https://disneypp.netlify.app/">CLICCA PER VISUALIZZARE</a>
+DEMO: <a href="https://disneypp.netlify.app/" style="text-decoration: none;">CLICCA PER VISUALIZZARE</a>
 
 <p>Oppure scannerizza il QR code</p>
-<img src="assets/md-img/qr.png" width="200px">
+<img src="assets/md-img/qr.png" width="200px" style="margin-bottom: 30px;">
 
 <a href="#home" style="text-decoration: none; color: #8efeff;">&uarr; Torna su &uarr;</a>

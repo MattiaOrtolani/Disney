@@ -212,7 +212,7 @@ body {
 .search-container .result-container__title {
   color: whitesmoke;
   font-size: 5rem;
-  padding: 0.5rem 0 2rem 0;
+  padding: 0.5rem 0 2rem 1rem;
   font-weight: 400;
 }
 .search-container .result-container .grid-result .default-search:nth-child(1) {
@@ -1170,12 +1170,17 @@ body {
 .container .slider .layout {
   width: max-content;
   overflow-x: auto;
-  margin-left: 8rem;
+  margin-left: 8.1rem;
   margin-bottom: 4rem;
 }
 @media only screen and (max-width: 1440px) {
   .container .slider .layout {
-    margin-left: 7rem;
+    margin-left: 6.8rem;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .container .slider .layout {
+    margin-left: 6.6rem;
   }
 }
 @media only screen and (max-width: 756px) {
