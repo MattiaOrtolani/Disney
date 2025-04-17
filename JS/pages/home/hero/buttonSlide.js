@@ -3,10 +3,33 @@ const rightBtn = document.querySelector('.btn-container-right__button');
 const carousel = document.querySelector('.carosello');
 const carouselIndex = document.querySelectorAll('.carosello-index__dot');
 
-let position = -181.25, index = 0;
+let position = 0;
+let index = 0;
 let canClick = true;
 carousel.style.transform = `translateX(${position}vw)`;
 carouselIndex[index].style.backgroundColor = 'white';
+
+function setInitialPosition()
+{
+    if (window.innerWidth <= 480)
+    {
+        position = -156;
+    }
+    else
+    {
+        position = -181.25;
+    }
+    carousel.style.transform = `translateX(${position}vw)`;
+    carouselIndex[index].style.backgroundColor = 'rgb(150, 150, 150)';
+    index=0;
+    carouselIndex[0].style.backgroundColor = 'white';
+}
+
+// Imposta la posizione iniziale
+setInitialPosition();
+
+// Aggiorna posizione al resize
+window.addEventListener('resize', setInitialPosition);
 
 export function leftBtnSlide()
 {
@@ -14,21 +37,42 @@ export function leftBtnSlide()
     {
         if (!canClick) return;
         canClick = false;
+        if(window.innerWidth <= 480)
+            position += 82.5;
+        else
+            position += 92.5;
 
-        position += 92.5;
         carousel.style.transform = `translateX(${position}vw)`;
 
-        if (position > -181.25)
+        if (window.innerWidth <= 480)
         {
-            position = -551.25;
-            index = 4;
-            resetCarousel(0);
+            if (position > -156)
+            {
+                position = -486;
+                index = 4;
+                resetCarousel(0);
+            }
+            else
+            {
+                index--;
+                updateIndex(index, index+1);
+            }
         }
         else
         {
-            index--;
-            updateIndex(index, index+1);
+            if (position > -181.25)
+            {
+                position = -551.25;
+                index = 4;
+                resetCarousel(0);
+            }
+            else
+            {
+                index--;
+                updateIndex(index, index+1);
+            }
         }
+
     });
 }
 
@@ -39,20 +83,42 @@ export function rightBtnSlide()
         if (!canClick) return;
         canClick = false;
 
-        position -= 92.5;
+        if(window.innerWidth <= 480)
+            position -= 82.5;
+        else
+            position -= 92.5;
+
         carousel.style.transform = `translateX(${position}vw)`;
 
-        if (position < -642.75)
+        if(window.innerWidth <= 480)
         {
-            position = -181.25;
-            index = 0;
-            resetCarousel(4);
+            if( position < -551.25)
+            {
+                position = -156;
+                index = 0;
+                resetCarousel(4);
+            }
+            else
+            {
+                index++;
+                updateIndex(index, index-1);
+            }
         }
         else
         {
-            index++;
-            updateIndex(index, index-1);
+            if (position < -642.75)
+            {
+                position = -181.25;
+                index = 0;
+                resetCarousel(4);
+            }
+            else
+            {
+                index++;
+                updateIndex(index, index-1);
+            }
         }
+
     });
 }
 

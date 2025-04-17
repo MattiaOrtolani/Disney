@@ -43,10 +43,18 @@ body {
   width: 4rem;
   border: none;
   background-color: transparent;
-  color: whitesmoke;
   font-size: 5rem;
   opacity: 0;
   transition: all 0.25s;
+  display: flex;
+  align-items: center;
+}
+.carosello-container .btn-container-right__button > svg {
+  height: 4rem;
+  width: 4rem;
+  fill: whitesmoke;
+  stroke: whitesmoke;
+  stroke-width: 1px;
 }
 .carosello-container .btn-container-left {
   position: absolute;
@@ -67,10 +75,18 @@ body {
   width: 4rem;
   border: none;
   background-color: transparent;
-  color: whitesmoke;
   font-size: 5rem;
   opacity: 0;
   transition: all 0.25s;
+  display: flex;
+  align-items: center;
+}
+.carosello-container .btn-container-left__button > svg {
+  height: 4rem;
+  width: 4rem;
+  fill: whitesmoke;
+  stroke: whitesmoke;
+  stroke-width: 1px;
 }
 .carosello-container .carosello {
   width: 500%;
@@ -340,21 +356,39 @@ body {
   background-size: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  backdrop-filter: brightness(0.1);
   position: relative;
 }
-.information-container::after {
+.information-container .background-container {
+  position: fixed;
+  z-index: -1;
+  top: 7.2rem;
+  left: 0;
+}
+.information-container .background-container__img {
+  width: 100%;
+}
+.information-container .background-container::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 60vw;
+  width: 60%;
   height: 100%;
   background: linear-gradient(to right, black, transparent);
+}
+.information-container .background-container::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to top, black, transparent);
   z-index: 2;
 }
 .information-container .information {
   position: relative;
+  top: 0;
   z-index: 3;
   padding: 7rem 0;
   margin: 0 7.1rem;
@@ -378,12 +412,28 @@ body {
   width: 60rem;
   height: min-content;
 }
+@media only screen and (max-width: 767px) {
+  .information-container .information .information-box {
+    width: 100%;
+  }
+}
 .information-container .information .information-box__title {
   font-size: 6rem;
   text-transform: uppercase;
   text-align: center;
   color: whitesmoke;
   margin-bottom: 1.8rem;
+}
+@media only screen and (max-width: 767px) {
+  .information-container .information .information-box__title {
+    font-size: 4rem;
+    width: min-content;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .information-container .information .information-box__title {
+    font-size: 2.75rem;
+  }
 }
 .information-container .information .information-box .features-info {
   display: flex;
@@ -411,10 +461,25 @@ body {
   margin: 2.4rem 0;
   color: whitesmoke;
 }
+@media only screen and (max-width: 767px) {
+  .information-container .information .information-box__description {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .information-container .information .information-box__description {
+    font-size: 1.6rem;
+  }
+}
 .information-container .information .information-box .btn-container {
   width: 100%;
   display: flex;
   align-items: center;
+}
+@media only screen and (max-width: 767px) {
+  .information-container .information .information-box .btn-container {
+    flex-direction: column;
+  }
 }
 .information-container .information .information-box .btn-container__button {
   height: 5.6rem;
@@ -435,6 +500,7 @@ body {
 }
 .information-container .information .information-box .btn-container__button:nth-child(1) {
   display: flex;
+  justify-content: center;
   gap: 0.25rem;
   background-color: whitesmoke;
   color: black;
@@ -444,8 +510,21 @@ body {
   width: 2.4rem;
   height: 2.4rem;
 }
+@media only screen and (max-width: 767px) {
+  .information-container .information .information-box .btn-container__button:nth-child(1) {
+    width: 100%;
+  }
+}
 .information-container .information .information-box .btn-container__button:nth-child(2) {
   margin: 0 2rem;
+}
+@media only screen and (max-width: 767px) {
+  .information-container .information .information-box .btn-container__button:nth-child(2) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
 }
 .information-container .information .information-box .btn-container__button:nth-child(3) {
   height: 4.6rem;

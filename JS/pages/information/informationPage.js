@@ -26,10 +26,10 @@ export async function initInformationPage()
         return;
     }
 
-    const container = document.querySelector('.information-container');
-    if (container && data.backdrop_path)
+    const backgroundImg = document.querySelector('.background-container__img');
+    if (backgroundImg || data.backdrop_path)
     {
-        container.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${data.backdrop_path})`;
+        backgroundImg.src = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
     }
 
     const titleElement = document.querySelector('.information-box__title');
@@ -110,7 +110,7 @@ export async function initInformationPage()
             {
                 const scrollTop = window.scrollY || document.documentElement.scrollTop;
                 const scrollFraction = Math.min(scrollTop / window.innerHeight, 1);
-                overlay.style.opacity = `${0.1 + (0.65 * scrollFraction)}`;
+                overlay.style.opacity = `${0.1 + (1 * scrollFraction)}`;
             });
         }
 

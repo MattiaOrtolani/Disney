@@ -17,6 +17,11 @@
         &__button
         {
             @include buttonSlide;
+
+            & > svg
+            {
+                @include svgCarouselButton;
+            }
         }
     }
     
@@ -29,6 +34,11 @@
         &__button
         {
             @include buttonSlide;
+
+            & > svg
+            {
+                @include svgCarouselButton;
+            }
         }
     }
 
