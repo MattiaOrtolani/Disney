@@ -880,25 +880,21 @@ body {
   right: 0;
   z-index: 9999;
 }
-@media only screen and (max-width: 1440px) {
-  .navbar__right-containter {
-    width: min-content;
-  }
-}
 .navbar__right-containter:hover {
   border: solid 1px rgb(60, 60, 60);
   border-bottom: none;
   border-top: none;
   background-color: black;
 }
-@media only screen and (max-width: 1440px) {
-  .navbar__right-containter:hover {
-    width: 24rem;
-  }
-}
 .navbar__right-containter:hover .menu {
+  width: 24rem;
   height: 49.8rem;
   border-bottom: solid 1px rgb(60, 60, 60);
+}
+@media only screen and (max-width: 767px) {
+  .navbar__right-containter:hover .menu {
+    height: 45rem;
+  }
 }
 .navbar__right-containter:hover .menu .guest {
   opacity: 1;
@@ -907,11 +903,6 @@ body {
 .navbar__right-containter:hover .menu__option {
   opacity: 1;
   filter: brightness(1);
-}
-@media only screen and (max-width: 767px) {
-  .navbar__right-containter:hover .menu {
-    height: min-content;
-  }
 }
 @media only screen and (max-width: 1440px) {
   .navbar__right-containter:hover .profile__name {

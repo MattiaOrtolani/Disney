@@ -259,11 +259,6 @@
         right: 0;
         z-index: 9999;
 
-        @media only screen and (max-width: 1440px)
-        {
-            width: min-content;
-        }
-
         &:hover
         {
             border: solid 1px $grey-border-color;
@@ -271,15 +266,16 @@
             border-top: none;
             background-color: $black-color;
 
-            @media only screen and (max-width: 1440px)
-            {
-                width: 24rem;
-            }
-
             .menu
             {
+                width: 24rem;
                 height: 49.8rem;
                 border-bottom: solid 1px $grey-border-color;
+
+                @media only screen and (max-width: 767px)
+                {
+                    height: 45rem;
+                }
 
                 .guest
                 {
@@ -291,11 +287,6 @@
                 {
                     opacity: 1;
                     filter: brightness(1);
-                }
-
-                @media only screen and (max-width: 767px)
-                {
-                    height: min-content;
                 }
             }
 
