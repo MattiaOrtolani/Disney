@@ -1,0 +1,56 @@
+@use '../variables/color' as *;
+
+.brand-card
+{
+    max-width: 14.53vw;
+    height: 8.18vw;
+    border-radius: 12px;
+    background-color: $background-button;
+    margin: 10px 10px 12px 10px;
+    display: flex;
+    position: relative;
+    transition: transform .3s;
+    overflow: hidden;
+
+    @media only screen and (max-width: 767px)
+    {
+        max-width: 27.77vw;
+        height: 15.51vw;
+    }
+
+    &:hover
+    {
+        transform: scale(1.06);
+        outline: solid 3px $white-color;
+        outline-offset: 3px;
+
+        .video-bg
+        {
+            opacity: 1;
+        }
+    }
+
+
+    .logo-container
+    {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 4;
+
+        &__img
+        {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .video-bg
+    {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 3;
+        opacity: 0;
+    }
+}

@@ -15,8 +15,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch"
+    "build:ts": "tsc",
+    "build:sass": "sass --style=compressed SCSS/main.scss CSS/main.css",
+    "watch:ts": "tsc --watch",
+    "watch:sass": "sass --style=compressed --watch SCSS/main.scss CSS/main.css",
+    "build": "npm run build:ts && npm run build:sass",
+    "watch": "npm run watch:ts & npm run watch:sass"
   },
   "devDependencies": {
     "sass": "^1.86.3",

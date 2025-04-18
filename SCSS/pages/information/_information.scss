@@ -1,5 +1,5 @@
-@use '../../variables/color' as *;
-
+@use '../../variables/color' as *;  
+@use 'sass:color';
 
 .information-container
 {
@@ -176,7 +176,7 @@
 
                     &:hover
                     {
-                        background-color: lighten($light-background-button, 8%);
+                        background-color: color.adjust($light-background-button, $lightness: 8%);
                     }
 
                     &:nth-child(1)
