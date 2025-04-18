@@ -2,16 +2,16 @@
 {
     height: min-content;
     scrollbar-width: none;
-    overflow: hidden;
+    overflow-x: scroll;
     
     .container-slide
     {
+        width: max-content;
         height: max-content;
         display: flex;
         align-items: center;
         padding: 0 5rem;
         overflow: hidden;
-        overflow-x: scroll;
 
         @media only screen and (max-width: 480px)
         {
