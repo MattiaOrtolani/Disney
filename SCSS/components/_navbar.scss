@@ -1,5 +1,4 @@
-@use '../base' as *;
-@use '../variables' as *;
+@use '../abstract/color' as *;
 
 .navbar
 {
@@ -12,6 +11,7 @@
     position: sticky;
     top: 0;
     z-index: 9997;
+    overflow-x: hidden;
 
     @media only screen and (max-width: 767px)
     {

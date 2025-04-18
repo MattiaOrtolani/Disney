@@ -1,4 +1,4 @@
-@use '../variables/color' as *;
+@use '../abstract/color' as *;
 
 .container
 {
@@ -21,8 +21,6 @@
         .layout
         {
             width: max-content;
-            overflow-x: auto;
-            margin-left: 8.1rem;
             margin-bottom: 4rem;
 
             @media only screen and (max-width: 1440px)

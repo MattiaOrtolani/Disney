@@ -1,0 +1,14 @@
+@use 'color' as *;
+
+.carousel-title
+{
+    font-size: 1.8rem;
+    color: $white-color;
+    padding-left: 6rem;
+    margin-bottom: 1rem;
+
+    @media only screen and (max-width: 480px)
+    {
+        padding-left: 2rem;
+    }
+}

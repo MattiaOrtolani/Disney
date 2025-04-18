@@ -1,0 +1,21 @@
+.film-carousel
+{
+    height: min-content;
+    scrollbar-width: none;
+    overflow: hidden;
+    
+    .container-slide
+    {
+        height: max-content;
+        display: flex;
+        align-items: center;
+        padding: 0 5rem;
+        overflow: hidden;
+        overflow-x: scroll;
+
+        @media only screen and (max-width: 480px)
+        {
+            padding: 0 1rem;
+        }
+    }
+}

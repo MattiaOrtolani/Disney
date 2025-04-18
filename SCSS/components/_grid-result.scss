@@ -1,24 +1,24 @@
-@use "../variables/color" as *;
+@use "../abstract/color" as *;
 @use 'sass:color';
 
 .grid-result
 {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, min-content);
 
     @media only screen and (max-width: 1440px)
     {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, min-content);
     }
 
     @media only screen and (max-width: 1024px)
     {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, min-content);
     }
 
     @media only screen and (max-width: 756px)
     {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, min-content);
     }
 
     .card

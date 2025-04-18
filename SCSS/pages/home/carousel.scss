@@ -1,6 +1,5 @@
-@use '../../base' as *;
-@use '../../variables' as *;
-@use '../../abstract' as *;
+@use '../../abstract/color' as *;
+@use '../../abstract/mixin' as *;
 
 .carosello-container
 {

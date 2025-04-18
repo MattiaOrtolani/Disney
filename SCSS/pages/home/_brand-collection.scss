@@ -1,10 +1,5 @@
 @use '../../abstract/mixin' as *;
-@use '../../variables/color' as *;
-
-.result-container
-{
-    margin: 0 5rem 4rem 5rem !important;
-}
+@use '../../abstract/color' as *;
 
 .brand-collection
 {

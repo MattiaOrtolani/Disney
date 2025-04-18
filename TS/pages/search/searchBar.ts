@@ -26,7 +26,7 @@ export function initSearchBar(): void
 
     function updateResultTitle(query: string): void
     {
-        const resultTitle: HTMLElement | null = document.querySelector(".result-container__title") as HTMLElement | null;
+        const resultTitle: HTMLElement | null = document.querySelector(".layout-container__title") as HTMLElement | null;
         if (resultTitle)
         {
             resultTitle.textContent = query.length > 0 ? "Risultati" : "Esplora";

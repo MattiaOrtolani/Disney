@@ -1,8 +1,8 @@
-@use '../variables/color' as *;
+@use '../abstract/color' as *;
 
 .brand-card
 {
-    max-width: 14.53vw;
+    width: 14.53vw;
     height: 8.18vw;
     border-radius: 12px;
     background-color: $background-button;
@@ -14,7 +14,7 @@
 
     @media only screen and (max-width: 767px)
     {
-        max-width: 27.77vw;
+        width: 27.77vw;
         height: 15.51vw;
     }
 

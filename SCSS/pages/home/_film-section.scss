@@ -1,0 +1,13 @@
+@use '../../abstract/color' as *;
+@use '../../abstract/mixin' as *;
+
+.film-section
+{
+    height:  max-content;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $dark-grey-background;
+    overflow-x: hidden;
+}

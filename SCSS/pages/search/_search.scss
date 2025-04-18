@@ -1,4 +1,4 @@
-@use '../../variables/color' as *;
+@use '../../abstract/color' as *;
 
 .search-container
 {
@@ -6,7 +6,7 @@
     background-color: $dark-grey-background;
     position: relative;
 
-    .result-container
+    .layout-container
     {
         &__title
         {
@@ -24,6 +24,7 @@
                 {
                     background-image: url('../../../assets/img/compose-#{$i}.webp');
                     background-size: cover;
+                    background-position: center;
                 }
             }
         }
