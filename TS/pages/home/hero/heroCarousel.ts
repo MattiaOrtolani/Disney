@@ -1,4 +1,4 @@
-import { apiTopRated } from '../../../api/apiTopRated.js';
+import { apiTopRated } from '../../../api/apiTopRatedFilm.js';
 
 const carousel: HTMLElement = document.querySelector('.carosello') as HTMLElement;
 

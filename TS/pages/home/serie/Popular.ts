@@ -1,4 +1,4 @@
-import { apiPopular } from '../../../api/apiPopularFilm.js';
+import { apiPopular } from '../../../api/apiPopularSeries.js';
 
 interface Movie {
     id: number;
@@ -6,10 +6,10 @@ interface Movie {
 }
 
 // Popola dinamicamente le card del primo carosello
-export async function populatePopularFilmCarousel(): Promise<void> {
+export async function populatePopularSeriesCarousel(): Promise<void> {
     const { results: movies } = await apiPopular();
     const carousels = document.querySelectorAll<HTMLElement>('.container-slide');
-    const carousel = carousels[2];
+    const carousel = carousels[5];
     if (!carousel) return;
 
 movies.forEach((movie: Movie, index: number) => {

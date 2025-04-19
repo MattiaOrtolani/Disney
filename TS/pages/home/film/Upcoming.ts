@@ -1,4 +1,4 @@
-import { apiTopRated } from '../../../api/apiTopRatedFilm.js';
+import { apiUpcoming } from '../../../api/apiUpcomingFilm.js';
 import { apiGenre } from '../../../api/apiGenre.js';
 
 interface Movie {
@@ -22,16 +22,17 @@ interface Genre {
     id: number;
     name: string;
 }
+
 // Popola dinamicamente le card del secondo carosello
-export async function populateTopRatedFilmCarousel(): Promise<void> {
-    const { results: movies } = await apiTopRated();
+export async function populateUpcomingFilmCarousel(): Promise<void> {
+    const { results: movies } = await apiUpcoming();
     const { genres } = await apiGenre();
     const genreMap = new Map<number, string>(
     genres.map((g: Genre) => [g.id, g.name])
     );
 
     const carousels = document.querySelectorAll<HTMLElement>('.container-slide');
-    const carousel = carousels[1];
+    const carousel = carousels[0];
     if (!carousel) return;
 
     movies.forEach((movie: Movie, index: number) => {
@@ -47,15 +48,6 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
         picture.appendChild(img);
         link.appendChild(picture);
-
-        // Numero di classifica
-        const topContainer = document.createElement('div');
-        topContainer.classList.add('top-container');
-        const number = document.createElement('p');
-        number.classList.add('top-container__number');
-        number.textContent = (index + 1).toString();
-        topContainer.appendChild(number);
-        link.appendChild(topContainer);
 
         // Info aggiuntive
         const infoContainer = document.createElement('div');
@@ -90,4 +82,3 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         carousel.appendChild(link);
     });
 }
-

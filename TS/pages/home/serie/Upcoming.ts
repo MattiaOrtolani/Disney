@@ -1,4 +1,4 @@
-import { apiTopRated } from '../../../api/apiTopRatedFilm.js';
+import { apiUpcoming } from '../../../api/apiUpcomingSeries.js';
 import { apiGenre } from '../../../api/apiGenre.js';
 
 interface Movie {
@@ -12,6 +12,7 @@ interface Movie {
     popularity: number;
     poster_path: string;
     release_date: string;
+    first_air_date?: string;
     title: string;
     video: boolean;
     vote_average: number;
@@ -22,16 +23,17 @@ interface Genre {
     id: number;
     name: string;
 }
+
 // Popola dinamicamente le card del secondo carosello
-export async function populateTopRatedFilmCarousel(): Promise<void> {
-    const { results: movies } = await apiTopRated();
+export async function populateUpcomingSeriesCarousel(): Promise<void> {
+    const { results: movies } = await apiUpcoming();
     const { genres } = await apiGenre();
     const genreMap = new Map<number, string>(
     genres.map((g: Genre) => [g.id, g.name])
     );
 
     const carousels = document.querySelectorAll<HTMLElement>('.container-slide');
-    const carousel = carousels[1];
+    const carousel = carousels[3];
     if (!carousel) return;
 
     movies.forEach((movie: Movie, index: number) => {
@@ -47,15 +49,6 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
         picture.appendChild(img);
         link.appendChild(picture);
-
-        // Numero di classifica
-        const topContainer = document.createElement('div');
-        topContainer.classList.add('top-container');
-        const number = document.createElement('p');
-        number.classList.add('top-container__number');
-        number.textContent = (index + 1).toString();
-        topContainer.appendChild(number);
-        link.appendChild(topContainer);
 
         // Info aggiuntive
         const infoContainer = document.createElement('div');
@@ -75,7 +68,7 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         technicalInfo.classList.add('technical-info');
         const yearText = document.createElement('p');
         yearText.classList.add('technical-info__text');
-        yearText.textContent = movie.release_date.split('-')[0];
+        yearText.textContent = (movie.release_date ?? movie.first_air_date ?? '').split('-')[0];
         technicalInfo.appendChild(yearText);
         technicalInfo.appendChild(document.createTextNode(' • '));
         const genresText = document.createElement('p');
@@ -90,4 +83,3 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         carousel.appendChild(link);
     });
 }
-

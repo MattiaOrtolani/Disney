@@ -1,4 +1,4 @@
-import { apiTopRated } from '../../../api/apiTopRatedFilm.js';
+import { apiTopRated } from '../../../api/apiTopRatedSeries.js';
 import { apiGenre } from '../../../api/apiGenre.js';
 
 interface Movie {
@@ -12,6 +12,7 @@ interface Movie {
     popularity: number;
     poster_path: string;
     release_date: string;
+    first_air_date?: string;
     title: string;
     video: boolean;
     vote_average: number;
@@ -23,7 +24,7 @@ interface Genre {
     name: string;
 }
 // Popola dinamicamente le card del secondo carosello
-export async function populateTopRatedFilmCarousel(): Promise<void> {
+export async function populateTopRatedSeriesCarousel(): Promise<void> {
     const { results: movies } = await apiTopRated();
     const { genres } = await apiGenre();
     const genreMap = new Map<number, string>(
@@ -31,7 +32,7 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
     );
 
     const carousels = document.querySelectorAll<HTMLElement>('.container-slide');
-    const carousel = carousels[1];
+    const carousel = carousels[4];
     if (!carousel) return;
 
     movies.forEach((movie: Movie, index: number) => {
@@ -75,7 +76,7 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         technicalInfo.classList.add('technical-info');
         const yearText = document.createElement('p');
         yearText.classList.add('technical-info__text');
-        yearText.textContent = movie.release_date.split('-')[0];
+        yearText.textContent = (movie.release_date ?? movie.first_air_date ?? '').split('-')[0];
         technicalInfo.appendChild(yearText);
         technicalInfo.appendChild(document.createTextNode(' • '));
         const genresText = document.createElement('p');
@@ -90,4 +91,3 @@ export async function populateTopRatedFilmCarousel(): Promise<void> {
         carousel.appendChild(link);
     });
 }
-
