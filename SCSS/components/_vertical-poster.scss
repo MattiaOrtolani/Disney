@@ -2,8 +2,8 @@
 
 .vertical-poster
 {
-    min-width: 17.6vw; // 331px | 17.6vw
-    height: 28.306667vw; // 191px | 9.95vw
+    min-width: 17.7vw; // 331px | 17.6vw
+    height: 28.29vw; // 191px | 9.95vw
     background-color: transparent;
     border-radius: 4px;
     transition: transform .35s;
@@ -14,22 +14,22 @@
     position: relative;
     background-color: $black-color;
 
-    @media only screen and (max-width: 1440px)
+    @media only screen and (max-width: 1439px)
     {
-        min-width: 21.9vw; // 315px
-        height: 36.4924vw;; // 177px
+        min-width: 21.73vw; // 315px
+        height: 34.76vw;; // 177px
     }
 
-    @media only screen and (max-width: 1024px)
+    @media only screen and (max-width: 1023px)
     {
-        min-width: 28.32vw; // 290px
-        height: 47.3627vw; // 163px
+        min-width: 28.37vw; // 290px
+        height: 45.41vw; // 163px
     }
 
     @media only screen and (max-width: 756px)
     {
-        min-width: 43.4vw; // 328px
-        height: 72.1760vw; // 184px
+        min-width: 42.29vw; // 328px
+        height: 67.68vw; // 184px
     }
 
     &:hover

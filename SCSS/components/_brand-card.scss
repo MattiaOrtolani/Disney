@@ -2,20 +2,19 @@
 
 .brand-card
 {
-    width: 14.53vw;
-    height: 8.18vw;
+    min-width: 14.56vw;
+    height: 8.19vw;
     border-radius: 12px;
     background-color: $background-button;
-    margin: 10px 10px 12px 10px;
     display: flex;
     position: relative;
     transition: transform .3s;
     overflow: hidden;
 
-    @media only screen and (max-width: 900px)
+    @media only screen and (max-width: 767px)
     {
-        width: 27.77vw;
-        height: 15.51vw;
+        min-width: 27.80vw;
+        height: 15.64vw;
     }
 
     &:hover
