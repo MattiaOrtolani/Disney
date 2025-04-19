@@ -3,6 +3,7 @@
 
 .grid-result
 {
+    width: min-content;
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(5, min-content);
