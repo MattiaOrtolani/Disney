@@ -29,7 +29,7 @@ export async function initInformationPage(): Promise<void>
     const backgroundImg: HTMLImageElement | null = document.querySelector(".background-container__img") as HTMLImageElement | null;
     if (backgroundImg && data.backdrop_path)
     {
-        backgroundImg.src = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
+        backgroundImg.src = `https://image.tmdb.org/t/p/w1920${data.backdrop_path}`;
     }
 
     const titleElement: HTMLElement | null = document.querySelector(".information-box__title") as HTMLElement | null;
