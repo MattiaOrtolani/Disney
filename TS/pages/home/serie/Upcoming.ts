@@ -39,7 +39,7 @@ export async function populateUpcomingSeriesCarousel(): Promise<void> {
     movies.forEach((movie: Movie, index: number) => {
         const link = document.createElement('a');
         link.classList.add('vertical-poster');
-        link.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
+        link.href = `../../../pages/information.html?id=${movie.id}&type=tv`;
 
         // Poster
         const picture = document.createElement('picture');

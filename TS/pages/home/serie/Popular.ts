@@ -15,7 +15,7 @@ export async function populatePopularSeriesCarousel(): Promise<void> {
 movies.forEach((movie: Movie, index: number) => {
     const horizontalPoster = document.createElement('a');
     horizontalPoster.classList.add('horizontal-poster');
-    horizontalPoster.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
+    horizontalPoster.href = `../../../pages/information.html?id=${movie.id}&type=tv`;
     horizontalPoster.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${movie.backdrop_path}')`;
     horizontalPoster.style.backgroundSize = 'cover';
     horizontalPoster.style.backgroundPosition = 'center';
