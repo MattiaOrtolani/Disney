@@ -1,0 +1,139 @@
+@use '../abstract/color' as *;
+
+.vertical-poster
+{
+    min-width: 17.6vw; // 331px | 17.6vw
+    height: 28.306667vw; // 191px | 9.95vw
+    background-color: transparent;
+    border-radius: 4px;
+    transition: transform .35s;
+    overflow: hidden;
+    margin-bottom: 2px;
+    background-size: cover;
+    margin: .5rem 0;
+    position: relative;
+    background-color: $black-color;
+
+    @media only screen and (max-width: 1440px)
+    {
+        min-width: 21.9vw; // 315px
+        height: 36.4924vw;; // 177px
+    }
+
+    @media only screen and (max-width: 1024px)
+    {
+        min-width: 28.32vw; // 290px
+        height: 47.3627vw; // 163px
+    }
+
+    @media only screen and (max-width: 756px)
+    {
+        min-width: 43.4vw; // 328px
+        height: 72.1760vw; // 184px
+    }
+
+    &:hover
+    {
+        outline: solid 3px $white-color;
+        outline-offset: 3px;
+        transform: scale(1.03);
+    }
+
+    .background
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0);
+
+        &::after
+        {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20rem;
+            background: linear-gradient(to top, rgba($black-color, 1) 10% ,transparent);
+        }
+
+        &__img
+        {
+            width: 100%;
+        }
+    }
+
+    .top-container
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 35rem;
+        height: 35rem;
+        background: radial-gradient(circle at bottom right, transparent 75%, #093C49 76%,  #000F13 100%);
+        
+        @media only screen and (max-width: 1600px)
+        {
+            width: 31rem;
+            height: 31rem;
+        }
+
+        @media only screen and (max-width: 1350px)
+        {
+            width: 26rem;
+            height: 26rem;
+        }
+
+        @media only screen and (max-width: 767px)
+        {
+            width: 31rem;
+            height: 31rem;
+        }
+
+        &__number
+        {
+            padding: .5rem 0 0 2rem;
+            color: #10A6C3;
+            font-size: 7rem;
+            font-weight: 800;
+
+            @media only screen and (max-width: 1600px)
+            {
+                padding: .5rem 0 0 2rem;
+                font-size: 6rem;
+            }
+
+            @media only screen and (max-width: 1350px)
+            {
+                padding: .5rem 0 0 2rem;
+                font-size: 5rem;
+            }
+
+            @media only screen and (max-width: 767px)
+            {
+                padding: .5rem 0 0 2rem;
+                font-size: 6rem;
+            }
+        }
+    }
+
+    .info-container
+    {
+        width: max-content;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        & p
+        {
+            font-size: 1.2rem;
+        }
+    }
+}

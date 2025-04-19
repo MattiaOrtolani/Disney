@@ -31,10 +31,10 @@ export async function initSeriesFilter(): Promise<void>
 
     function createCard(series: any): HTMLAnchorElement
     {
-        const poster: HTMLAnchorElement = document.createElement("a");
-        poster.href = `../../../pages/information.html?id=${series.id}&type=tv`;
-        poster.classList.add("poster");
-        poster.setAttribute("data-id", series.id.toString());
+        const horizontalPoster: HTMLAnchorElement = document.createElement("a");
+        horizontalPoster.href = `../../../pages/information.html?id=${series.id}&type=tv`;
+        horizontalPoster.classList.add("horizontal-poster");
+        horizontalPoster.setAttribute("data-id", series.id.toString());
 
         let genreText: string = "";
         if (series.genre_ids && series.genre_ids.length > 0)
@@ -46,15 +46,15 @@ export async function initSeriesFilter(): Promise<void>
             }).filter(Boolean);
             genreText = genreNames.join(" ");
         }
-        poster.setAttribute("data-genres", genreText);
+        horizontalPoster.setAttribute("data-genres", genreText);
 
         if (series.backdrop_path)
         {
-            poster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${series.backdrop_path})`;
-            poster.style.backgroundSize = "cover";
+            horizontalPoster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${series.backdrop_path})`;
+            horizontalPoster.style.backgroundSize = "cover";
         }
 
-        return poster;
+        return horizontalPoster;
     }
 
     genreButtons.forEach((button: HTMLButtonElement) =>
@@ -62,7 +62,7 @@ export async function initSeriesFilter(): Promise<void>
         button.addEventListener("click", () =>
         {
             const genre: string = button.textContent?.trim().toLowerCase() ?? "";
-            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".poster") as NodeListOf<HTMLElement>;
+            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".horizontal-poster") as NodeListOf<HTMLElement>;
             cards.forEach((card: HTMLElement) =>
             {
                 const genresAttr: string | null = card.getAttribute("data-genres");

@@ -81,12 +81,12 @@ export async function initInformationPage(): Promise<void>
             return itemGenres.some((id) => targetGenres.includes(id));
         }
 
-        function createPosterCard(item: any, type: string): HTMLAnchorElement | null
+        function createhorizontalPosterCard(item: any, type: string): HTMLAnchorElement | null
         {
             if (!item.backdrop_path || item.id === data.id) return null;
 
             const link: HTMLAnchorElement = document.createElement("a");
-            link.classList.add("poster");
+            link.classList.add("horizontal-poster");
             link.href = `../../../pages/information.html?id=${item.id}&type=${type}`;
             link.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`;
             link.style.backgroundSize = "cover";
@@ -119,7 +119,7 @@ export async function initInformationPage(): Promise<void>
         {
             if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids as number[]))
             {
-                const card: HTMLAnchorElement | null = createPosterCard(item, "movie");
+                const card: HTMLAnchorElement | null = createhorizontalPosterCard(item, "movie");
                 if (card) grid.appendChild(card);
             }
         }
@@ -129,7 +129,7 @@ export async function initInformationPage(): Promise<void>
         {
             if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids as number[]))
             {
-                const card: HTMLAnchorElement | null = createPosterCard(item, "tv");
+                const card: HTMLAnchorElement | null = createhorizontalPosterCard(item, "tv");
                 if (card) grid.appendChild(card);
             }
         }

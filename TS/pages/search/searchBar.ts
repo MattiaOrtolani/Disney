@@ -10,12 +10,12 @@ export function initSearchBar(): void
     let currentPage: number = 1;
     let currentQuery: string = "";
 
-    function createPosterElement(item: any): HTMLAnchorElement | null
+    function createhorizontalPosterElement(item: any): HTMLAnchorElement | null
     {
         if (!item.backdrop_path) return null;
 
         const a: HTMLAnchorElement = document.createElement("a");
-        a.classList.add("poster");
+        a.classList.add("horizontal-poster");
         a.href = `../../../pages/information.html?id=${item.id}&type=${item.media_type}`;
         a.style.backgroundImage = `url(https://image.tmdb.org/t/p/w300${item.backdrop_path})`;
         a.style.backgroundSize = "cover";
@@ -33,12 +33,12 @@ export function initSearchBar(): void
         }
     }
 
-    function clearDynamicPosters(): void
+    function clearDynamichorizontalPosters(): void
     {
-        const dynamicPosters: NodeListOf<HTMLElement> = gridResult.querySelectorAll("a.poster") as NodeListOf<HTMLElement>;
-        dynamicPosters.forEach((poster: HTMLElement) =>
+        const dynamichorizontalPosters: NodeListOf<HTMLElement> = gridResult.querySelectorAll("a.horizontalPoster") as NodeListOf<HTMLElement>;
+        dynamichorizontalPosters.forEach((horizontalPoster: HTMLElement) =>
         {
-            poster.remove();
+            horizontalPoster.remove();
         });
     }
 
@@ -50,7 +50,7 @@ export function initSearchBar(): void
 
         data.results.forEach((item: any) =>
         {
-            const el: HTMLAnchorElement | null = createPosterElement(item);
+            const el: HTMLAnchorElement | null = createhorizontalPosterElement(item);
             if (el) gridResult.appendChild(el);
         });
 
@@ -71,7 +71,7 @@ export function initSearchBar(): void
             clearButton.style.display = query.length > 0 ? "block" : "none";
 
             updateResultTitle(query);
-            clearDynamicPosters();
+            clearDynamichorizontalPosters();
 
             const defaultSearchElements: NodeListOf<HTMLElement> = gridResult.querySelectorAll("div.default-search") as NodeListOf<HTMLElement>;
             defaultSearchElements.forEach((el: HTMLElement) =>
@@ -94,7 +94,7 @@ export function initSearchBar(): void
         clearButton.style.display = "none";
 
         updateResultTitle("");
-        clearDynamicPosters();
+        clearDynamichorizontalPosters();
 
         const defaultSearchElements: NodeListOf<HTMLElement> = gridResult.querySelectorAll("div.default-search") as NodeListOf<HTMLElement>;
         defaultSearchElements.forEach((el: HTMLElement) =>

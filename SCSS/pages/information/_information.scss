@@ -97,36 +97,6 @@
                 }
             }
 
-            .features-info
-            {
-                display: flex;
-                gap: .8rem;
-                margin-bottom: .5rem;
-                color: $white-color-2;
-                overflow: hidden;
-
-                &__text
-                {
-                    font-size: 1.8rem;
-                    background-color: $grey-color-2;
-                    padding: .2rem .3rem;
-                    border-radius: 2px;
-                }
-            }
-
-            .technical-info
-            {
-                display: flex;
-                gap: .8rem;
-                align-items: center;
-                color: $white-color-2;
-
-                &__text
-                {
-                    font-size: 1.4rem;
-                }
-            }
-
             &__description
             {
                 font-size: 2.2rem;

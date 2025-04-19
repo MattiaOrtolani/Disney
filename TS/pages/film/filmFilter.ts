@@ -11,24 +11,24 @@ export async function initFilmFilter(): Promise<void>
 
     function createCard(movie: any): HTMLAnchorElement
     {
-        const poster: HTMLAnchorElement = document.createElement("a");
-        poster.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
-        poster.classList.add("poster");
-        poster.setAttribute("data-id", movie.id.toString());
-        poster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
-        poster.style.backgroundSize = "cover";
+        const horizontalPoster: HTMLAnchorElement = document.createElement("a");
+        horizontalPoster.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
+        horizontalPoster.classList.add("horizontal-poster");
+        horizontalPoster.setAttribute("data-id", movie.id.toString());
+        horizontalPoster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+        horizontalPoster.style.backgroundSize = "cover";
 
         const titleText: string = (movie.title || "Titolo non disponibile").toLowerCase();
-        poster.setAttribute("data-title", titleText);
+        horizontalPoster.setAttribute("data-title", titleText);
 
         const genreText: string = (movie.genre_ids || []).map((id: number) =>
         {
             const foundGenre = genres.find((g) => g.id === id);
             return foundGenre ? foundGenre.name.toLowerCase() : "";
         }).filter(Boolean).join(" ");
-        poster.setAttribute("data-genres", genreText);
+        horizontalPoster.setAttribute("data-genres", genreText);
 
-        return poster;
+        return horizontalPoster;
     }
 
     function updateButtonStyles(activeButton: HTMLButtonElement): void
@@ -68,7 +68,7 @@ export async function initFilmFilter(): Promise<void>
         button.addEventListener("click", () =>
         {
             const genre: string = button.textContent?.trim().toLowerCase() ?? "";
-            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".poster") as NodeListOf<HTMLElement>;
+            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".horizontalPoster") as NodeListOf<HTMLElement>;
             cards.forEach((card: HTMLElement) =>
             {
                 const genresAttr: string | null = card.getAttribute("data-genres");

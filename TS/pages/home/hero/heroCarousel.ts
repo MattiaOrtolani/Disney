@@ -1,10 +1,10 @@
-import { apiPopular } from '../../../api/apiPopular.js';
+import { apiTopRated } from '../../../api/apiTopRated.js';
 
 const carousel: HTMLElement = document.querySelector('.carosello') as HTMLElement;
 
 export const filmHero = async (): Promise<void> => 
 {
-    const data: any = await apiPopular();
+    const data: any = await apiTopRated();
     const films: any[] = data.results.slice(0, 5);
     const looped: any[] = 
     [
