@@ -81,6 +81,39 @@ export async function initInformationPage(): Promise<void>
             return itemGenres.some((id) => targetGenres.includes(id));
         }
 
+        const suggestions: HTMLAnchorElement[] = [];
+
+        // Helper to load items by type
+        async function loadTypeItems(type: 'movie' | 'tv', apiFn: (page: number) => Promise<any>) {
+            let page = 1;
+            let total = Infinity;
+            while (page <= total) {
+                const data = await apiFn(page);
+                total = data.total_pages;
+                for (const item of data.results as any[]) {
+                    if (item.id !== data.id && hasCommonGenres(item.genre_ids as number[])) {
+                        const card = createhorizontalPosterCard(item, type);
+                        if (card) {
+                            suggestions.push(card);
+                        }
+                    }
+                }
+                    if (suggestions.length >= 8) {
+                        break; // finished collecting this page, stop paging
+                    }
+                page++;
+            }
+        }
+
+        // Load at least 6 suggestions: movies first, then series
+        await loadTypeItems('movie', apiMovie);
+        if (suggestions.length < 6) {
+            await loadTypeItems('tv', apiSeries);
+        }
+
+        // Append only the first 6 suggestions (or fewer if not enough)
+        suggestions.slice(0, 8).forEach(card => grid.appendChild(card));
+
         function createhorizontalPosterCard(item: any, type: string): HTMLAnchorElement | null
         {
             if (!item.backdrop_path || item.id === data.id) return null;
@@ -112,26 +145,6 @@ export async function initInformationPage(): Promise<void>
                 const scrollFraction: number = Math.min(scrollTop / window.innerHeight, 1);
                 overlay.style.opacity = `${0.1 + scrollFraction}`;
             });
-        }
-
-        const movieData: any = await apiMovie(1);
-        for (const item of movieData.results as any[])
-        {
-            if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids as number[]))
-            {
-                const card: HTMLAnchorElement | null = createhorizontalPosterCard(item, "movie");
-                if (card) grid.appendChild(card);
-            }
-        }
-
-        const seriesData: any = await apiSeries(1);
-        for (const item of seriesData.results as any[])
-        {
-            if (item.id !== data.id && item.genre_ids && hasCommonGenres(item.genre_ids as number[]))
-            {
-                const card: HTMLAnchorElement | null = createhorizontalPosterCard(item, "tv");
-                if (card) grid.appendChild(card);
-            }
         }
     }
 }
