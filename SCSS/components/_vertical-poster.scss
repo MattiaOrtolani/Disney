@@ -32,6 +32,11 @@
         height: 67.68vw; // 184px
     }
 
+    @media only screen and (max-width: 480px)
+    {
+        margin: 1.2rem 0;
+    }
+
     &:hover
     {
         outline: solid 3px $white-color;

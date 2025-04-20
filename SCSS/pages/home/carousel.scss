@@ -7,12 +7,13 @@
     position: relative;
     background-color: $dark-grey-background;
     height: min-content;
+    margin-bottom: 1.1rem;
 
     .btn-container-right
     {
         @include slideLayout;
         right: 0;
-        background: linear-gradient(to left, rgba(0,0,0,.4), rgba(0,0,0,0));
+        background: linear-gradient(to left, $dark-grey-background, transparent);
 
         &__button
         {
@@ -29,7 +30,7 @@
     {
         @include slideLayout;
         left: 0;
-        background: linear-gradient(to right, rgba(0,0,0,.4), rgba(0,0,0,0));
+        background: linear-gradient(to right,$dark-grey-background, transparent);
 
         &__button
         {

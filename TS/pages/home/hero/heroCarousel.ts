@@ -26,9 +26,26 @@ export const filmHero = async (): Promise<void> =>
         const banner = document.createElement('a');
         banner.classList.add('carosello__banner');
         banner.href = `../../../pages/information.html?id=${film.id}&type=movie`;
-        banner.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/w1920${film.backdrop_path}" alt="${film.title}">
-        `;
+
+        const img = document.createElement('img');
+        const isMobile = window.innerWidth <= 480;
+        img.src = isMobile
+            ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
+            : `https://image.tmdb.org/t/p/w1920${film.backdrop_path}`;
+        img.alt = film.title;
+
+        banner.appendChild(img);
         carousel.appendChild(banner);
     });
 };
+
+// Re-run the hero setup when crossing the mobile breakpoint
+let _lastIsMobile = window.innerWidth <= 480;
+
+window.addEventListener('resize', () => {
+  const isMobile = window.innerWidth <= 480;
+  if (isMobile !== _lastIsMobile) {
+    _lastIsMobile = isMobile;
+    filmHero().catch(console.error);
+  }
+});
