@@ -66,12 +66,17 @@
         grid-auto-flow: column;
         grid-auto-columns: min-content;
         gap: 20px;
-        padding: 1.1rem 0 1rem 0;
+        padding: 1.1rem 0 0rem 0;
         padding-left: clamp(1rem, 4vw, 6rem);
         padding-right: clamp(1rem, 4vw, 6rem);
         overflow-x: scroll;
         scrollbar-width: none;
 
+        & .vertical-poster, .horizontal-poster
+        {
+            box-shadow: 0 20px 20px 0 rgba($black-color, .8);
+            margin-bottom: 2rem;
+        }
 
         @media only screen and (max-width: 480px)
         {

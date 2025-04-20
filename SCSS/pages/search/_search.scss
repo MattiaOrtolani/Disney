@@ -6,18 +6,21 @@
     background-color: $dark-grey-background;
     position: relative;
 
-    .layout-container
-    {
-        &__title
+    
+        .grid-result__title
         {
             color: $white-color;
             font-size: 5rem;
-            padding: .5rem 0 2rem 1rem;
+            padding: .5rem 0 2rem 0;
             font-weight: 400;
+            margin-left: 4.5vw;
         }
 
-        .grid-result
+        & .grid-result
         {
+            margin-left: 4.5vw;
+            margin-bottom: 4rem;
+            
             @for $i from 1 through 20
             {
                 .default-search:nth-child(#{$i})
@@ -28,7 +31,7 @@
                 }
             }
         }
-    }
+    
 
     .search-bar
     {

@@ -28,7 +28,6 @@ export const filmHero = async (): Promise<void> =>
         banner.href = `../../../pages/information.html?id=${film.id}&type=movie`;
         banner.innerHTML = `
             <img src="https://image.tmdb.org/t/p/w1920${film.backdrop_path}" alt="${film.title}">
-            <h1>${film.title}</h1>
         `;
         carousel.appendChild(banner);
     });

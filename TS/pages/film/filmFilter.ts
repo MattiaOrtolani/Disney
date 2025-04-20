@@ -6,8 +6,28 @@ export async function initFilmFilter(): Promise<void>
     const genreButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".layout__btn") as NodeListOf<HTMLButtonElement>;
     const resultGrid: HTMLElement = document.querySelector(".grid-result") as HTMLElement;
     let currentPage: number = 1;
-    let totalPages: number = 0;
-    let genres: { id: number; name: string; }[] = [];
+    let totalPages: number = 1;
+    let isLoading: boolean = false;
+    const genres: { id: number; name: string; }[] = (await apiGenre()).genres;
+
+    await loadPage(currentPage);
+
+    async function loadPage(page: number): Promise<void>
+    {
+        if (isLoading || page > totalPages) return;
+        isLoading = true;
+
+        const data: any = await apiMovie(page);
+        totalPages = data.total_pages;
+
+        data.results.forEach((movie: any) =>
+        {
+            const card: HTMLAnchorElement = createCard(movie);
+            resultGrid.appendChild(card);
+        });
+
+        isLoading = false;
+    }
 
     function createCard(movie: any): HTMLAnchorElement
     {
@@ -15,78 +35,60 @@ export async function initFilmFilter(): Promise<void>
         horizontalPoster.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
         horizontalPoster.classList.add("horizontal-poster");
         horizontalPoster.setAttribute("data-id", movie.id.toString());
-        horizontalPoster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
-        horizontalPoster.style.backgroundSize = "cover";
 
-        const titleText: string = (movie.title || "Titolo non disponibile").toLowerCase();
-        horizontalPoster.setAttribute("data-title", titleText);
-
-        const genreText: string = (movie.genre_ids || []).map((id: number) =>
+        let genreText: string = "";
+        if (movie.genre_ids && movie.genre_ids.length > 0)
         {
-            const foundGenre = genres.find((g) => g.id === id);
-            return foundGenre ? foundGenre.name.toLowerCase() : "";
-        }).filter(Boolean).join(" ");
+            const genreNames: string[] = movie.genre_ids.map((id: number) =>
+            {
+                const found = genres.find((g) => g.id === id);
+                return found ? found.name.toLowerCase() : "";
+            }).filter(Boolean);
+            genreText = genreNames.join(" ");
+        }
         horizontalPoster.setAttribute("data-genres", genreText);
+
+        if (movie.backdrop_path)
+        {
+            horizontalPoster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+            horizontalPoster.style.backgroundSize = "cover";
+        }
 
         return horizontalPoster;
     }
 
-    function updateButtonStyles(activeButton: HTMLButtonElement): void
-    {
-        genreButtons.forEach((btn) =>
-        {
-            btn.style.backgroundColor = "rgb(45, 47, 53)";
-            btn.style.color = "white";
-        });
-        activeButton.style.backgroundColor = "white";
-        activeButton.style.color = "black";
-    }
-
-    async function loadPage(page: number): Promise<void>
-    {
-        const data: any = await apiMovie(page);
-        const seenIds: Set<number> = new Set<number>();
-
-        data.results.forEach((movie: any) =>
-        {
-            if (!seenIds.has(movie.id))
-            {
-                seenIds.add(movie.id);
-                const card = createCard(movie);
-                resultGrid.appendChild(card);
-            }
-        });
-    }
-
-    genres = (await apiGenre()).genres;
-    const initialData: any = await apiMovie(currentPage);
-    totalPages = initialData.total_pages;
-    await loadPage(currentPage);
-
-    genreButtons.forEach((button) =>
+    genreButtons.forEach((button: HTMLButtonElement) =>
     {
         button.addEventListener("click", () =>
         {
             const genre: string = button.textContent?.trim().toLowerCase() ?? "";
-            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".horizontalPoster") as NodeListOf<HTMLElement>;
+            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".horizontal-poster") as NodeListOf<HTMLElement>;
             cards.forEach((card: HTMLElement) =>
             {
                 const genresAttr: string | null = card.getAttribute("data-genres");
                 card.style.display = (genre === "tutti i film" || (genresAttr && genresAttr.includes(genre))) ? "block" : "none";
             });
-            updateButtonStyles(button);
+
+            genreButtons.forEach((btn: HTMLButtonElement) =>
+            {
+                btn.style.backgroundColor = "rgb(45, 47, 53)";
+                btn.style.color = "white";
+            });
+
+            button.style.backgroundColor = "white";
+            button.style.color = "black";
         });
     });
 
-    updateButtonStyles(genreButtons[0]);
+    genreButtons[0]?.click();
 
-    const observerTarget: Element = document.querySelector(".sentinel") as Element;
-    const observer: IntersectionObserver = new IntersectionObserver(async (entries) =>
+    const sentinel: Element = document.querySelector(".sentinel") as Element;
+    const observer: IntersectionObserver = new IntersectionObserver((entries: IntersectionObserverEntry[]) =>
     {
-        if (entries[0].isIntersecting && currentPage < totalPages)
+        if (entries[0].isIntersecting)
         {
             currentPage++;
-            await loadPage(currentPage);
+            loadPage(currentPage);
         }
     },
     {
@@ -94,5 +96,5 @@ export async function initFilmFilter(): Promise<void>
         threshold: 0
     });
 
-    observer.observe(observerTarget);
+    observer.observe(sentinel);
 }

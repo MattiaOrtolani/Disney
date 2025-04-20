@@ -35,11 +35,10 @@ export function initSearchBar(): void
 
     function clearDynamichorizontalPosters(): void
     {
-        const dynamichorizontalPosters: NodeListOf<HTMLElement> = gridResult.querySelectorAll("a.horizontalPoster") as NodeListOf<HTMLElement>;
-        dynamichorizontalPosters.forEach((horizontalPoster: HTMLElement) =>
-        {
-            horizontalPoster.remove();
-        });
+    const dynamicPosters: NodeListOf<HTMLElement> = gridResult.querySelectorAll("a.horizontal-poster");
+    dynamicPosters.forEach(poster => poster.remove());
+    observer.disconnect();
+    observer.observe(sentinel);
     }
 
     async function loadResults(query: string, page: number = 1): Promise<void>
