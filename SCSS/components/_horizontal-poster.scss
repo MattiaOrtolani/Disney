@@ -2,7 +2,7 @@
 
 .horizontal-poster
 {
-    min-width: 17.3vw; // 331px | 17.6vw
+    width: 17.3vw; // 331px | 17.6vw
     height: 9.63vw; // 191px | 9.95vw
     background-color: transparent;
     border-radius: 4px;
@@ -13,19 +13,19 @@
 
     @media only screen and (max-width: 1439px)
     {
-        min-width: 21.52vw; // 315px
+        width: 21.52vw; // 315px
         height: 11.927vw; // 177px
     }
 
     @media only screen and (max-width: 1023px)
     {
-        min-width: 27.79vw; // 290px
+        width: 27.79vw; // 290px
         height: 15.38vw; // 163px
     }
 
     @media only screen and (max-width: 767px)
     {
-        min-width: 42.7vw; // 328px
+        width: 42.7vw; // 328px
         height: 23.67vw; // 184px
     }
 

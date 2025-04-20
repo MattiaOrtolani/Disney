@@ -2,7 +2,7 @@
 
 .brand-card
 {
-    min-width: 14.56vw;
+    width: 14.56vw;
     height: 8.19vw;
     border-radius: 12px;
     background-color: $background-button;
@@ -13,7 +13,7 @@
 
     @media only screen and (max-width: 767px)
     {
-        min-width: 27.80vw;
+        width: 27.80vw;
         height: 15.64vw;
     }
 
