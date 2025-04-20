@@ -48,7 +48,7 @@ export async function initInformationPage(): Promise<void>
     if (featuresInfo.length >= 2)
     {
         const voto: string = data.vote_average ? data.vote_average.toFixed(1) : "N/A";
-        const eta: string = data.adult ? ">18" : "<18";
+        const eta: string = data.adult ? "18+" : "16+";
         featuresInfo[0].textContent = voto;
         featuresInfo[1].textContent = eta;
     }
