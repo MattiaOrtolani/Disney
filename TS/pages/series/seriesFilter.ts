@@ -1,100 +1,120 @@
 import { apiSeries } from "../../api/apiSeries.js";
 import { apiGenre } from "../../api/apiGenre.js";
 
+interface Series
+{
+    id: number;
+    genre_ids: number[];
+    backdrop_path: string | null;
+}
+
+interface Genre
+{
+    id: number;
+    name: string;
+}
+
 export async function initSeriesFilter(): Promise<void>
 {
-    const genreButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".layout__btn") as NodeListOf<HTMLButtonElement>;
-    const resultGrid: HTMLElement = document.querySelector(".grid-result") as HTMLElement;
-    let currentPage: number = 1;
-    let totalPages: number = 1;
-    let isLoading: boolean = false;
-    const genres: { id: number; name: string; }[] = (await apiGenre()).genres;
+    const genreButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.layout__btn'));
+    const resultGrid = document.querySelector<HTMLElement>('.grid-result')!;
+    let currentPage = 1;
+    let totalPages = 1;
+    let isLoading = false;
+    let loadedSeries: Series[] = [];
+    let currentFilterId = -1;
+    const genres: Genre[] = (await apiGenre()).genres;
 
     await loadPage(currentPage);
 
     async function loadPage(page: number): Promise<void>
     {
-        if (isLoading || page > totalPages) return;
+        if (isLoading || page > totalPages)
+        {
+            return;
+        }
+
         isLoading = true;
 
-        const data: any = await apiSeries(page);
+        const data = await apiSeries(page);
         totalPages = data.total_pages;
 
-        data.results.forEach((series: any) =>
+        for (const seriesItem of data.results as Series[])
         {
-            const card: HTMLAnchorElement = createCard(series);
-            resultGrid.appendChild(card);
-        });
+            loadedSeries.push(seriesItem);
+        }
 
+        renderSeries();
         isLoading = false;
     }
-
-    function createCard(series: any): HTMLAnchorElement
+    function createCard(seriesItem: Series): HTMLAnchorElement
     {
-        const horizontalPoster: HTMLAnchorElement = document.createElement("a");
-        horizontalPoster.href = `../../../pages/information.html?id=${series.id}&type=tv`;
-        horizontalPoster.classList.add("horizontal-poster");
-        horizontalPoster.setAttribute("data-id", series.id.toString());
+        const link = document.createElement('a');
+        link.classList.add('horizontal-poster');
+        link.href = `../../../pages/information.html?id=${seriesItem.id}&type=tv`;
+        link.dataset.genreIds = JSON.stringify(seriesItem.genre_ids);
 
-        let genreText: string = "";
-        if (series.genre_ids && series.genre_ids.length > 0)
+        if (seriesItem.backdrop_path)
         {
-            const genreNames: string[] = series.genre_ids.map((id: number) =>
-            {
-                const found = genres.find((g) => g.id === id);
-                return found ? found.name.toLowerCase() : "";
-            }).filter(Boolean);
-            genreText = genreNames.join(" ");
-        }
-        horizontalPoster.setAttribute("data-genres", genreText);
-
-        if (series.backdrop_path)
-        {
-            horizontalPoster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${series.backdrop_path})`;
-            horizontalPoster.style.backgroundSize = "cover";
+            link.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${seriesItem.backdrop_path})`;
+            link.style.backgroundSize = 'cover';
         }
 
-        return horizontalPoster;
+        return link;
     }
 
-    genreButtons.forEach((button: HTMLButtonElement) =>
+    for (const button of genreButtons)
     {
-        button.addEventListener("click", () =>
+        button.addEventListener('click', () =>
         {
-            const genre: string = button.textContent?.trim().toLowerCase() ?? "";
-            const cards: NodeListOf<HTMLElement> = resultGrid.querySelectorAll(".horizontal-poster") as NodeListOf<HTMLElement>;
-            cards.forEach((card: HTMLElement) =>
-            {
-                const genresAttr: string | null = card.getAttribute("data-genres");
-                card.style.display = (genre === "tutti le serie" || (genresAttr && genresAttr.includes(genre))) ? "block" : "none";
-            });
+            const genreName = button.textContent?.trim().toLowerCase() ?? '';
+            const selected = genres.find((g: Genre) => g.name.toLowerCase() === genreName);
+            currentFilterId = selected?.id ?? -1;
+            renderSeries();
 
-            genreButtons.forEach((btn: HTMLButtonElement) =>
+            for (const btn of genreButtons)
             {
-                btn.style.backgroundColor = "rgb(45, 47, 53)";
-                btn.style.color = "white";
-            });
+                btn.style.backgroundColor = 'rgb(45, 47, 53)';
+                btn.style.color = 'white';
+            }
 
-            button.style.backgroundColor = "white";
-            button.style.color = "black";
+            button.style.backgroundColor = 'white';
+            button.style.color = 'black';
         });
-    });
-
-    genreButtons[0]?.click();
-
-    const sentinel: Element = document.querySelector(".sentinel") as Element;
-    const observer: IntersectionObserver = new IntersectionObserver((entries: IntersectionObserverEntry[]) =>
+    }
+    function renderSeries(): void
     {
-        if (entries[0].isIntersecting)
+        resultGrid.innerHTML = '';
+        for (const series of loadedSeries)
         {
-            currentPage++;
-            loadPage(currentPage);
+            if (currentFilterId === -1 || series.genre_ids.includes(currentFilterId))
+            {
+                const card = createCard(series);
+                resultGrid.appendChild(card);
+            }
         }
-    },
-    {
-        rootMargin: "0px",
-        threshold: 0
-    });
+    }
 
-    observer.observe(sentinel);
+    await loadPage(currentPage);
+    genreButtons[0]?.click();
+    
+    const sentinel = document.querySelector<Element>('.sentinel');
+    
+    if (sentinel)
+    {
+        const observer = new IntersectionObserver(entries =>
+        {
+            if (entries[0].isIntersecting)
+            {
+                currentPage++;
+                loadPage(currentPage);
+            }
+        },
+        {
+            rootMargin: '0px',
+            threshold: 0
+        });
+    
+        observer.observe(sentinel);
+    }
 }
