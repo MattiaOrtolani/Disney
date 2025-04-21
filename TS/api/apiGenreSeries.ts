@@ -1,4 +1,4 @@
-export const apiGenre = async (): Promise<any> =>
+export const apiGenreSeries = async (): Promise<any> =>
 {
     const url: string = "https://api.themoviedb.org/3/genre/tv/list?api_key=YOUR_API_KEY&language=it-IT";
     const headers: { Authorization: string } =

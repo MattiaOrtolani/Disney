@@ -1,6 +1,7 @@
 import { apiMovie } from "../../api/apiMovie.js";
 import { apiSeries } from "../../api/apiSeries.js";
-import { apiGenre } from "../../api/apiGenreMovie.js";
+import { apiGenreMovie } from "../../api/apiGenreMovie.js";
+import { apiGenreSeries } from "../../api/apiGenreSeries.js";
 import { apiDetail } from "../../api/apiDetail.js";
 
 export async function initInformationPage(): Promise<void>
@@ -15,7 +16,16 @@ export async function initInformationPage(): Promise<void>
         return;
     }
 
-    const genres = (await apiGenre()).genres;
+    let genreList;
+    if (type === "movie")
+    {
+        genreList = await apiGenreMovie();
+    }
+    else
+    {
+        genreList = await apiGenreSeries();
+    }
+    const genres = genreList.genres as { id: number; name: string }[];
     const data = await apiDetail(type, id);
 
     if (!data)

@@ -1,5 +1,5 @@
 import { apiUpcoming } from '../../../api/apiUpcomingSeries.js';
-import { apiGenre } from '../../../api/apiGenreMovie.js';
+import { apiGenreSeries } from '../../../api/apiGenreSeries.js';
 
 interface Movie 
 {
@@ -29,7 +29,7 @@ interface Genre
 export async function populateUpcomingSeriesCarousel(): Promise<void> 
 {
     const { results: movies } = await apiUpcoming();
-    const { genres } = await apiGenre();
+    const { genres } = await apiGenreSeries();
     const genreMap = new Map<number, string>
     (
         genres.map((g: Genre) => [g.id, g.name])
