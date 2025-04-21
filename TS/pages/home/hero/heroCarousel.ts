@@ -39,12 +39,13 @@ export const filmHero = async (): Promise<void> =>
     });
 };
 
-// Re-run the hero setup when crossing the mobile breakpoint
 let _lastIsMobile = window.innerWidth <= 480;
 
-window.addEventListener('resize', () => {
+window.addEventListener('resize', () => 
+{
   const isMobile = window.innerWidth <= 480;
-  if (isMobile !== _lastIsMobile) {
+  if (isMobile !== _lastIsMobile) 
+  {
     _lastIsMobile = isMobile;
     filmHero().catch(console.error);
   }

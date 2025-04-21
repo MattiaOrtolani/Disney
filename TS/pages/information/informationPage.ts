@@ -5,11 +5,9 @@ import { apiDetail } from "../../api/apiDetail.js";
 
 export async function initInformationPage(): Promise<void>
 {
-    const params: URLSearchParams = new URLSearchParams(window.location.search);
-    const id: string | null = params.get("id");
-    const type: string | null = params.get("type");
-    const firstPage: any = await apiMovie(1);
-    const totalMoviePages: number = firstPage.total_pages;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const type = params.get("type");
 
     if (!id || !type)
     {
@@ -17,8 +15,8 @@ export async function initInformationPage(): Promise<void>
         return;
     }
 
-    const genres: { id: number; name: string; }[] = (await apiGenre()).genres;
-    const data: any = await apiDetail(type!, id!);
+    const genres = (await apiGenre()).genres;
+    const data = await apiDetail(type, id);
 
     if (!data)
     {
@@ -26,44 +24,46 @@ export async function initInformationPage(): Promise<void>
         return;
     }
 
-    const backgroundImg: HTMLImageElement | null = document.querySelector(".background-container__img") as HTMLImageElement | null;
+    const backgroundImg = document.querySelector(".background-container__img") as HTMLImageElement | null;
     if (backgroundImg && data.backdrop_path)
     {
         backgroundImg.src = `https://image.tmdb.org/t/p/w1920${data.backdrop_path}`;
     }
 
-    const titleElement: HTMLElement | null = document.querySelector(".information-box__title") as HTMLElement | null;
+    const titleElement = document.querySelector(".information-box__title") as HTMLElement | null;
     if (titleElement)
     {
         titleElement.textContent = data.title || data.name || "Titolo non disponibile";
     }
 
-    const descriptionElement: HTMLElement | null = document.querySelector(".information-box__description") as HTMLElement | null;
+    const descriptionElement = document.querySelector(".information-box__description") as HTMLElement | null;
     if (descriptionElement)
     {
         descriptionElement.textContent = data.overview || "Descrizione non disponibile.";
     }
 
-    const featuresInfo: NodeListOf<HTMLElement> = document.querySelectorAll(".features-info__text") as NodeListOf<HTMLElement>;
+    const featuresInfo = document.querySelectorAll<HTMLElement>(".features-info__text");
     if (featuresInfo.length >= 2)
     {
-        const voto: string = data.vote_average ? data.vote_average.toFixed(1) : "N/A";
-        const eta: string = data.adult ? "18+" : "16+";
+        const voto = data.vote_average ? data.vote_average.toFixed(1) : "N/A";
+        const eta = data.adult ? "18+" : "16+";
         featuresInfo[0].textContent = voto;
         featuresInfo[1].textContent = eta;
     }
 
-    const technicalInfo: NodeListOf<HTMLElement> = document.querySelectorAll(".technical-info__text") as NodeListOf<HTMLElement>;
+    const technicalInfo = document.querySelectorAll<HTMLElement>(".technical-info__text");
     if (technicalInfo.length >= 2)
     {
-        const dataUscita: string = data.release_date || data.first_air_date || "";
-        const anno: string = dataUscita.split("-")[0] || "Anno non disponibile";
+        const dataUscita = data.release_date || data.first_air_date || "";
+        const anno = dataUscita.split("-")[0] || "Anno non disponibile";
         technicalInfo[0].textContent = anno;
 
         if (data.genres && genres.length > 0)
         {
-            const genreNames: string[] = (data.genres as { name: string; }[]).map((g) => g.name);
-            technicalInfo[1].textContent = genreNames.length > 0 ? genreNames.join(", ") : "Genere non disponibile";
+            const genreNames = (data.genres as { name: string }[]).map((g) => g.name);
+            technicalInfo[1].textContent = genreNames.length > 0
+                ? genreNames.join(", ")
+                : "Genere non disponibile";
         }
         else
         {
@@ -71,10 +71,10 @@ export async function initInformationPage(): Promise<void>
         }
     }
 
-    const grid: HTMLElement | null = document.querySelector(".grid-result") as HTMLElement | null;
+    const grid = document.querySelector(".grid-result") as HTMLElement | null;
     if (grid && data.genres)
     {
-        const targetGenres: number[] = (data.genres as { id: number; }[]).map((g) => g.id);
+        const targetGenres = (data.genres as { id: number }[]).map((g) => g.id);
 
         function hasCommonGenres(itemGenres: number[]): boolean
         {
@@ -83,42 +83,56 @@ export async function initInformationPage(): Promise<void>
 
         const suggestions: HTMLAnchorElement[] = [];
 
-        // Helper to load items by type
-        async function loadTypeItems(type: 'movie' | 'tv', apiFn: (page: number) => Promise<any>) {
+        async function loadTypeItems(type: "movie" | "tv", apiFn: (page: number) => Promise<any>)
+        {
             let page = 1;
             let total = Infinity;
-            while (page <= total) {
-                const data = await apiFn(page);
-                total = data.total_pages;
-                for (const item of data.results as any[]) {
-                    if (item.id !== data.id && hasCommonGenres(item.genre_ids as number[])) {
+
+            while (page <= total)
+            {
+                const pageData = await apiFn(page);
+                total = pageData.total_pages;
+
+                for (const item of pageData.results as any[])
+                {
+                    if (item.id !== data.id && hasCommonGenres(item.genre_ids as number[]))
+                    {
                         const card = createhorizontalPosterCard(item, type);
-                        if (card) {
+                        if (card)
+                        {
                             suggestions.push(card);
                         }
                     }
                 }
-                    if (suggestions.length >= 8) {
-                        break; // finished collecting this page, stop paging
-                    }
+
+                if (suggestions.length >= 8)
+                {
+                    break;
+                }
+
                 page++;
             }
         }
 
-        // Load at least 6 suggestions: movies first, then series
-        await loadTypeItems('movie', apiMovie);
-        if (suggestions.length < 6) {
-            await loadTypeItems('tv', apiSeries);
+        await loadTypeItems("movie", apiMovie);
+        if (suggestions.length < 6)
+        {
+            await loadTypeItems("tv", apiSeries);
         }
 
-        // Append only the first 6 suggestions (or fewer if not enough)
-        suggestions.slice(0, 8).forEach(card => grid.appendChild(card));
+        suggestions.slice(0, 8).forEach((card) =>
+        {
+            grid.appendChild(card);
+        });
 
         function createhorizontalPosterCard(item: any, type: string): HTMLAnchorElement | null
         {
-            if (!item.backdrop_path || item.id === data.id) return null;
+            if (!item.backdrop_path || item.id === data.id)
+            {
+                return null;
+            }
 
-            const link: HTMLAnchorElement = document.createElement("a");
+            const link = document.createElement("a");
             link.classList.add("horizontal-poster");
             link.href = `../../../pages/information.html?id=${item.id}&type=${type}`;
             link.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`;
@@ -127,10 +141,10 @@ export async function initInformationPage(): Promise<void>
             return link;
         }
 
-        const infoContainer: HTMLElement | null = document.querySelector(".information-container") as HTMLElement | null;
+        const infoContainer = document.querySelector(".information-container") as HTMLElement | null;
         if (infoContainer)
         {
-            const overlay: HTMLDivElement = document.createElement("div");
+            const overlay = document.createElement("div");
             overlay.classList.add("information-overlay");
             overlay.style.position = "absolute";
             overlay.style.inset = "0";
@@ -141,8 +155,8 @@ export async function initInformationPage(): Promise<void>
 
             window.addEventListener("scroll", (): void =>
             {
-                const scrollTop: number = window.scrollY || document.documentElement.scrollTop;
-                const scrollFraction: number = Math.min(scrollTop / window.innerHeight, 1);
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const scrollFraction = Math.min(scrollTop / window.innerHeight, 1);
                 overlay.style.opacity = `${0.1 + scrollFraction}`;
             });
         }

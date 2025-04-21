@@ -25,10 +25,8 @@ function setInitialPosition(): void
     carouselIndex[0].style.backgroundColor = 'white';
 }
 
-// Imposta la posizione iniziale
 setInitialPosition();
 
-// Aggiorna posizione al resize
 window.addEventListener('resize', setInitialPosition);
 
 export function leftBtnSlide(): void
