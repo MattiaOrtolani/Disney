@@ -1,5 +1,5 @@
 import { apiMovie } from "../../api/apiMovie.js";
-import { apiGenre } from "../../api/apiGenre.js";
+import { apiGenre } from "../../api/apiGenreMovie.js";
 import { apiMovieGenre } from "../../api/apiMovieGenre.js";
 
 // Funzione di inizializzazione del filtro film

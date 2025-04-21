@@ -1,5 +1,5 @@
 import { apiUpcoming } from '../../../api/apiUpcomingFilm.js';
-import { apiGenre } from '../../../api/apiGenre.js';
+import { apiGenre } from '../../../api/apiGenreMovie.js';
 
 let genreMapGlobal: Map<number, string>;
 

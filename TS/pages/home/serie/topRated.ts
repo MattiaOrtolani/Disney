@@ -1,5 +1,5 @@
 import { apiTopRated } from '../../../api/apiTopRatedSeries.js';
-import { apiGenre } from '../../../api/apiGenre.js';
+import { apiGenre } from '../../../api/apiGenreMovie.js';
 
 interface Movie 
 {

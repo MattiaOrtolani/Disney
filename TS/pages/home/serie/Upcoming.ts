@@ -1,5 +1,5 @@
 import { apiUpcoming } from '../../../api/apiUpcomingSeries.js';
-import { apiGenre } from '../../../api/apiGenre.js';
+import { apiGenre } from '../../../api/apiGenreMovie.js';
 
 interface Movie 
 {

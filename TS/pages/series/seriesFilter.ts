@@ -1,120 +1,139 @@
 import { apiSeries } from "../../api/apiSeries.js";
-import { apiGenre } from "../../api/apiGenre.js";
+import { apiGenre } from "../../api/apiGenreSeries.js";
+import { apiSeriesGenre } from "../../api/apiSeriesGenre.js";
 
-interface Series
-{
-    id: number;
-    genre_ids: number[];
-    backdrop_path: string | null;
-}
-
-interface Genre
-{
-    id: number;
-    name: string;
-}
-
+// Funzione di inizializzazione del filtro serie
 export async function initSeriesFilter(): Promise<void>
 {
-    const genreButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.layout__btn'));
-    const resultGrid = document.querySelector<HTMLElement>('.grid-result')!;
-    let currentPage = 1;
-    let totalPages = 1;
-    let isLoading = false;
-    let loadedSeries: Series[] = [];
-    let currentFilterId = -1;
-    const genres: Genre[] = (await apiGenre()).genres;
+  // Seleziona tutti i pulsanti di filtro
+  const layoutButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.layout__btn'));
+  // Contenitore dei risultati
+  const gridResult = document.querySelector<HTMLElement>('.grid-result')!;
+  let currentPage = 1;
+  // Tenere traccia dell'indice del bottone attivo
+  let activeButtonIndex = 0;
 
-    await loadPage(currentPage);
+  // Preleva i generi da API
+  const genreResponse = await apiGenre();
+  const genres = genreResponse.genres as { id: number; name: string }[];
 
-    async function loadPage(page: number): Promise<void>
+  // Funzione per rendere i poster orizzontali
+  function renderSeries(results: any[])
+  {
+    results.forEach(series =>
     {
-        if (isLoading || page > totalPages)
-        {
-            return;
-        }
+      const a = document.createElement('a');
+      a.classList.add('horizontal-poster');
+      a.href = `../../../pages/information.html?id=${series.id}&type=tv`;
+      a.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${series.backdrop_path})`;
+      gridResult.appendChild(a);
+    });
+  }
 
-        isLoading = true;
+  // Funzione per caricare serie (tutte o per genere)
+  async function loadSeries(genreId: number | null = null, page: number = 1)
+  {
+    const data = genreId === null
+      ? await apiSeries(page)
+      : await apiSeriesGenre(page, genreId);
 
-        const data = await apiSeries(page);
-        totalPages = data.total_pages;
+    gridResult.innerHTML = '';
+    renderSeries(data.results);
+  }
 
-        for (const seriesItem of data.results as Series[])
-        {
-            loadedSeries.push(seriesItem);
-        }
+  // Imposta listener su ciascun pulsante
+  layoutButtons.forEach((btn, index) =>
+  {
+    btn.addEventListener('click', async () =>
+    {
+      // Ripristina stile del vecchio bottone
+      const prevButton = layoutButtons[activeButtonIndex];
+      prevButton.style.background = 'rgb(45, 47, 53)';
+      prevButton.style.color = 'white';
 
-        renderSeries();
-        isLoading = false;
+      // Applica stile al bottone appena premuto
+      btn.style.background = 'white';
+      btn.style.color = 'black';
+
+      // Aggiorna indice attivo
+      activeButtonIndex = index;
+
+      currentPage = 1;
+      gridResult.innerHTML = '';
+
+      if (index === 0)
+      {
+        // Tutte le serie
+        await loadSeries(null, currentPage);
+      }
+      else
+      {
+        // Serie per genere
+        const genreName = btn.textContent?.trim() || '';
+        const matched = genres.find(g => g.name.toLowerCase() === genreName.toLowerCase());
+          await loadSeries(matched ? matched.id : null, currentPage);
+      }
+    });
+  });
+
+  // Inizializzazione: stile iniziale sui bottoni e carica tutte le serie
+  if (layoutButtons.length > 0)
+  {
+    layoutButtons.forEach((b, i) =>
+    {
+      if (i === activeButtonIndex)
+      {
+        b.style.background = 'white';
+        b.style.color = 'black';
+      }
+      else
+      {
+        b.style.background = 'rgb(45, 47, 53)';
+        b.style.color = 'white';
+      }
+    });
+  }
+  await loadSeries(null, currentPage);
+
+  // Infinite scroll setup
+  const sentinel = document.querySelector<HTMLElement>('.sentinel')!;
+
+  // Funzione per caricare pagine successive senza resettare la griglia
+  async function loadMoreSeries()
+  {
+    currentPage++;
+    const activeIndex = layoutButtons.findIndex(b => b.style.background === 'white');
+    if (activeIndex === 0)
+    {
+      const data = await apiSeries(currentPage);
+      renderSeries(data.results);
     }
-    function createCard(seriesItem: Series): HTMLAnchorElement
+    else
     {
-        const link = document.createElement('a');
-        link.classList.add('horizontal-poster');
-        link.href = `../../../pages/information.html?id=${seriesItem.id}&type=tv`;
-        link.dataset.genreIds = JSON.stringify(seriesItem.genre_ids);
-
-        if (seriesItem.backdrop_path)
-        {
-            link.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${seriesItem.backdrop_path})`;
-            link.style.backgroundSize = 'cover';
-        }
-
-        return link;
+      const genreName = layoutButtons[activeIndex].textContent?.trim() || '';
+      const matched = genres.find(g => g.name.toLowerCase() === genreName.toLowerCase());
+      let data;
+      if (matched) {
+        data = await apiSeriesGenre(currentPage, matched.id);
+      } else {
+        data = await apiSeries(currentPage);
+      }
+      renderSeries(data.results);
     }
+  }
 
-    for (const button of genreButtons)
+  const observer = new IntersectionObserver(async entries =>
+  {
+    for (const entry of entries)
     {
-        button.addEventListener('click', () =>
-        {
-            const genreName = button.textContent?.trim().toLowerCase() ?? '';
-            const selected = genres.find((g: Genre) => g.name.toLowerCase() === genreName);
-            currentFilterId = selected?.id ?? -1;
-            renderSeries();
-
-            for (const btn of genreButtons)
-            {
-                btn.style.backgroundColor = 'rgb(45, 47, 53)';
-                btn.style.color = 'white';
-            }
-
-            button.style.backgroundColor = 'white';
-            button.style.color = 'black';
-        });
-    }
-    function renderSeries(): void
-    {
-        resultGrid.innerHTML = '';
-        for (const series of loadedSeries)
-        {
-            if (currentFilterId === -1 || series.genre_ids.includes(currentFilterId))
-            {
-                const card = createCard(series);
-                resultGrid.appendChild(card);
-            }
-        }
-    }
-
-    await loadPage(currentPage);
-    genreButtons[0]?.click();
-    
-    const sentinel = document.querySelector<Element>('.sentinel');
-    
-    if (sentinel)
-    {
-        const observer = new IntersectionObserver(entries =>
-        {
-            if (entries[0].isIntersecting)
-            {
-                currentPage++;
-                loadPage(currentPage);
-            }
-        },
-        {
-            rootMargin: '0px',
-            threshold: 0
-        });
-    
+      if (entry.isIntersecting)
+      {
+        observer.unobserve(sentinel);
+        await loadMoreSeries();
         observer.observe(sentinel);
+      }
     }
+  }, { rootMargin: '200px' });
+
+  observer.observe(sentinel);
 }

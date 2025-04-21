@@ -1,6 +1,6 @@
 import { apiMovie } from "../../api/apiMovie.js";
 import { apiSeries } from "../../api/apiSeries.js";
-import { apiGenre } from "../../api/apiGenre.js";
+import { apiGenre } from "../../api/apiGenreMovie.js";
 import { apiDetail } from "../../api/apiDetail.js";
 
 export async function initInformationPage(): Promise<void>
