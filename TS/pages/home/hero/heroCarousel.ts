@@ -43,10 +43,10 @@ let _lastIsMobile = window.innerWidth <= 480;
 
 window.addEventListener('resize', () => 
 {
-  const isMobile = window.innerWidth <= 480;
-  if (isMobile !== _lastIsMobile) 
-  {
-    _lastIsMobile = isMobile;
-    filmHero().catch(console.error);
-  }
+    const isMobile = window.innerWidth <= 480;
+    if (isMobile !== _lastIsMobile) 
+    {
+        _lastIsMobile = isMobile;
+        filmHero().catch(console.error);
+    }
 });

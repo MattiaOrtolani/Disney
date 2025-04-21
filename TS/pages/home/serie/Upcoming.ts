@@ -1,7 +1,8 @@
 import { apiUpcoming } from '../../../api/apiUpcomingSeries.js';
 import { apiGenre } from '../../../api/apiGenre.js';
 
-interface Movie {
+interface Movie 
+{
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];
@@ -19,29 +20,34 @@ interface Movie {
     vote_count: number;
 }
 
-interface Genre {
+interface Genre 
+{
     id: number;
     name: string;
 }
 
-// Popola dinamicamente le card del secondo carosello
-export async function populateUpcomingSeriesCarousel(): Promise<void> {
+export async function populateUpcomingSeriesCarousel(): Promise<void> 
+{
     const { results: movies } = await apiUpcoming();
     const { genres } = await apiGenre();
-    const genreMap = new Map<number, string>(
-    genres.map((g: Genre) => [g.id, g.name])
+    const genreMap = new Map<number, string>
+    (
+        genres.map((g: Genre) => [g.id, g.name])
     );
-
     const carousels = document.querySelectorAll<HTMLElement>('.container-slide');
     const carousel = carousels[3];
-    if (!carousel) return;
+    
+    if (!carousel) 
+    {
+        return;
+    }
 
-    movies.forEach((movie: Movie, index: number) => {
+    movies.forEach((movie: Movie, index: number) => 
+    {
         const link = document.createElement('a');
         link.classList.add('vertical-poster');
         link.href = `../../../pages/information.html?id=${movie.id}&type=tv`;
 
-        // Poster
         const picture = document.createElement('picture');
         picture.classList.add('background');
         const img = document.createElement('img');
@@ -50,11 +56,9 @@ export async function populateUpcomingSeriesCarousel(): Promise<void> {
         picture.appendChild(img);
         link.appendChild(picture);
 
-        // Info aggiuntive
         const infoContainer = document.createElement('div');
         infoContainer.classList.add('info-container');
 
-        // Età consigliata
         const featuresInfo = document.createElement('div');
         featuresInfo.classList.add('features-info');
         const featuresText = document.createElement('p');
@@ -63,7 +67,6 @@ export async function populateUpcomingSeriesCarousel(): Promise<void> {
         featuresInfo.appendChild(featuresText);
         infoContainer.appendChild(featuresInfo);
 
-        // Anno e generi
         const technicalInfo = document.createElement('div');
         technicalInfo.classList.add('technical-info');
         const yearText = document.createElement('p');
@@ -74,7 +77,7 @@ export async function populateUpcomingSeriesCarousel(): Promise<void> {
         const genresText = document.createElement('p');
         genresText.classList.add('technical-info__text');
         genresText.textContent = movie.genre_ids
-            .map(id => genreMap.get(id) || '')
+            .map((id: number) => genreMap.get(id) || '')
             .join(', ');
         technicalInfo.appendChild(genresText);
         infoContainer.appendChild(technicalInfo);

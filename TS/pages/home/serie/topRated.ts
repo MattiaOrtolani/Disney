@@ -1,7 +1,8 @@
 import { apiTopRated } from '../../../api/apiTopRatedSeries.js';
 import { apiGenre } from '../../../api/apiGenre.js';
 
-interface Movie {
+interface Movie 
+{
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];
@@ -19,28 +20,32 @@ interface Movie {
     vote_count: number;
 }
 
-interface Genre {
+interface Genre 
+{
     id: number;
     name: string;
 }
-// Popola dinamicamente le card del secondo carosello
-export async function populateTopRatedSeriesCarousel(): Promise<void> {
+
+export async function populateTopRatedSeriesCarousel(): Promise<void> 
+{
     const { results: movies } = await apiTopRated();
     const { genres } = await apiGenre();
     const genreMap = new Map<number, string>(
-    genres.map((g: Genre) => [g.id, g.name])
+        genres.map((g: Genre) => [g.id, g.name])
     );
-
     const carousels = document.querySelectorAll<HTMLElement>('.container-slide');
     const carousel = carousels[4];
-    if (!carousel) return;
+    if (!carousel) 
+    {
+        return;
+    }
 
-    movies.forEach((movie: Movie, index: number) => {
+    movies.forEach((movie: Movie, index: number) => 
+    {
         const link = document.createElement('a');
         link.classList.add('vertical-poster');
         link.href = `../../../pages/information.html?id=${movie.id}&type=tv`;
 
-        // Poster
         const picture = document.createElement('picture');
         picture.classList.add('background');
         const img = document.createElement('img');
@@ -49,7 +54,6 @@ export async function populateTopRatedSeriesCarousel(): Promise<void> {
         picture.appendChild(img);
         link.appendChild(picture);
 
-        // Numero di classifica
         const topContainer = document.createElement('div');
         topContainer.classList.add('top-container');
         const number = document.createElement('p');
@@ -58,11 +62,9 @@ export async function populateTopRatedSeriesCarousel(): Promise<void> {
         topContainer.appendChild(number);
         link.appendChild(topContainer);
 
-        // Info aggiuntive
         const infoContainer = document.createElement('div');
         infoContainer.classList.add('info-container');
 
-        // Età consigliata
         const featuresInfo = document.createElement('div');
         featuresInfo.classList.add('features-info');
         const featuresText = document.createElement('p');
@@ -71,7 +73,6 @@ export async function populateTopRatedSeriesCarousel(): Promise<void> {
         featuresInfo.appendChild(featuresText);
         infoContainer.appendChild(featuresInfo);
 
-        // Anno e generi
         const technicalInfo = document.createElement('div');
         technicalInfo.classList.add('technical-info');
         const yearText = document.createElement('p');
@@ -82,7 +83,7 @@ export async function populateTopRatedSeriesCarousel(): Promise<void> {
         const genresText = document.createElement('p');
         genresText.classList.add('technical-info__text');
         genresText.textContent = movie.genre_ids
-            .map(id => genreMap.get(id) || '')
+            .map((id: number) => genreMap.get(id) || '')
             .join(', ');
         technicalInfo.appendChild(genresText);
         infoContainer.appendChild(technicalInfo);
