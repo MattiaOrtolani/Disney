@@ -6,7 +6,6 @@ interface Movie
     backdrop_path: string;
 }
 
-// Popola dinamicamente le card del primo carosello
 export async function populatePopularFilmCarousel(): Promise<void> 
 {
     const { results: movies } = await apiPopular();
