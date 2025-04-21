@@ -8,6 +8,7 @@ import { populateTopRatedFilmCarousel } from '../pages/home/film/topRated.js';
 import { populateTopRatedSeriesCarousel } from '../pages/home/serie/topRated.js';
 import { populateUpcomingFilmCarousel } from '../pages/home/film/Upcoming.js';
 import { populateUpcomingSeriesCarousel } from '../pages/home/serie/Upcoming.js';
+import { initCarouselControls } from '../pages/home/buttonScroll.js';
 
 redirectIfMobile();
 filmHero();
@@ -19,3 +20,4 @@ populateTopRatedFilmCarousel();
 populateTopRatedSeriesCarousel();
 populateUpcomingFilmCarousel();
 populateUpcomingSeriesCarousel();
+initCarouselControls();

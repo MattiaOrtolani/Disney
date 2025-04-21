@@ -40,3 +40,33 @@
     stroke: $white-color;
     stroke-width: 1px;
 }
+
+@mixin carouselButtonContainer
+{
+    width: 6rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+}
+
+@mixin carouselButton
+{
+    height: 5rem;
+    width: 5rem;
+    background-color: transparent;
+    border: none;
+}
+
+@mixin carouselButtonIcon
+{
+    height: 4rem;
+    width: 4rem;
+    fill: $white-color;
+    stroke: $white-color;
+    stroke-width: 1px;
+}
