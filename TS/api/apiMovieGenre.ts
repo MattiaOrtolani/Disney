@@ -1,4 +1,4 @@
-export const apiMovieGenre = async (genreId: number | null = null, page: number = 1): Promise<any> =>
+export const apiMovieGenre = async (page: number = 1, genreId: number): Promise<any> =>
 {
     const url: string = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&page=${page}`;
     const headers: { Authorization: string } =

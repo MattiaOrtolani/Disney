@@ -24,7 +24,7 @@ export async function initFilmFilter(): Promise<void>
     {
         const data = genreId === null
         ? await apiMovie(page)
-        : await apiMovieGenre(genreId, page);
+        : await apiMovieGenre(page, genreId);
 
         gridResult.innerHTML = '';
         renderMovies(data.results);
@@ -85,7 +85,7 @@ export async function initFilmFilter(): Promise<void>
         }
         else
         {
-            const data = await apiMovieGenre(genreId, currentPage);
+            const data = await apiMovieGenre(currentPage, genreId);
             renderMovies(data.results);
         }
     }

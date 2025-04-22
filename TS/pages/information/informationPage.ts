@@ -1,5 +1,5 @@
-import { apiMovie } from "../../api/apiMovie.js";
-import { apiSeries } from "../../api/apiSeries.js";
+import { apiMovieGenre } from "../../api/apiMovieGenre.js";
+import { apiSeriesGenre } from "../../api/apiSeriesGenre.js";
 import { apiGenreMovie } from "../../api/apiGenreMovie.js";
 import { apiGenreSeries } from "../../api/apiGenreSeries.js";
 import { apiDetail } from "../../api/apiDetail.js";
@@ -27,6 +27,10 @@ export async function initInformationPage(): Promise<void>
     }
     const genres = genreList.genres as { id: number; name: string }[];
     const data = await apiDetail(type, id);
+
+    const firstGenreId = (data.genre_ids && data.genre_ids.length > 0)
+    ? data.genre_ids[0]
+    : (data.genres && data.genres.length > 0 ? (data.genres as {id: number}[])[0].id : null);
 
     if (!data)
     {
@@ -72,8 +76,8 @@ export async function initInformationPage(): Promise<void>
         {
             const genreNames = (data.genres as { name: string }[]).map((g) => g.name);
             technicalInfo[1].textContent = genreNames.length > 0
-                ? genreNames.join(", ")
-                : "Genere non disponibile";
+            ? genreNames.join(", ")
+            : "Genere non disponibile";
         }
         else
         {
@@ -84,57 +88,6 @@ export async function initInformationPage(): Promise<void>
     const grid = document.querySelector(".grid-result") as HTMLElement | null;
     if (grid && data.genres)
     {
-        const targetGenres = (data.genres as { id: number }[]).map((g) => g.id);
-
-        function hasCommonGenres(itemGenres: number[]): boolean
-        {
-            return itemGenres.some((id) => targetGenres.includes(id));
-        }
-
-        const suggestions: HTMLAnchorElement[] = [];
-
-        async function loadTypeItems(type: "movie" | "tv", apiFn: (page: number) => Promise<any>)
-        {
-            let page = 1;
-            let total = Infinity;
-
-            while (page <= total)
-            {
-                const pageData = await apiFn(page);
-                total = pageData.total_pages;
-
-                for (const item of pageData.results as any[])
-                {
-                    if (item.id !== data.id && hasCommonGenres(item.genre_ids as number[]))
-                    {
-                        const card = createhorizontalPosterCard(item, type);
-                        if (card)
-                        {
-                            suggestions.push(card);
-                        }
-                    }
-                }
-
-                if (suggestions.length >= 8)
-                {
-                    break;
-                }
-
-                page++;
-            }
-        }
-
-        await loadTypeItems("movie", apiMovie);
-        if (suggestions.length < 6)
-        {
-            await loadTypeItems("tv", apiSeries);
-        }
-
-        suggestions.slice(0, 8).forEach((card) =>
-        {
-            grid.appendChild(card);
-        });
-
         function createhorizontalPosterCard(item: any, type: string): HTMLAnchorElement | null
         {
             if (!item.backdrop_path || item.id === data.id)
@@ -150,6 +103,35 @@ export async function initInformationPage(): Promise<void>
             link.style.display = "block";
             return link;
         }
+
+        const suggestions: HTMLAnchorElement[] = [];
+        if (firstGenreId !== null)
+        {
+            let recData;
+            if (type === "movie")
+            {
+                recData = await apiMovieGenre(1, firstGenreId);
+            }
+            else
+            {
+                recData = await apiSeriesGenre(1, firstGenreId);
+            }
+            (recData.results as any[])
+            .filter(item =>
+            {
+                return item.id !== data.id && item.backdrop_path;
+            })
+            .slice(0, 8)
+            .forEach(item =>
+            {
+                const card = createhorizontalPosterCard(item, type);
+                if (card) suggestions.push(card);
+            });
+        }
+        suggestions.forEach(card =>
+        {
+            grid.appendChild(card);
+        });
 
         const infoContainer = document.querySelector(".information-container") as HTMLElement | null;
         if (infoContainer)
