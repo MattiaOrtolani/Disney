@@ -12,11 +12,11 @@ export async function initFilmFilter(): Promise<void>
     {
         results.forEach(movie =>
         {
-        const a = document.createElement('a');
-        a.classList.add('horizontal-poster');
-        a.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
-        a.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
-        gridResult.appendChild(a);
+            const a = document.createElement('a');
+            a.classList.add('horizontal-poster');
+            a.href = `../../../pages/information.html?id=${movie.id}&type=movie`;
+            a.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+            gridResult.appendChild(a);
         });
     }
 
@@ -56,16 +56,16 @@ export async function initFilmFilter(): Promise<void>
     {
         layoutButtons.forEach((b, i) =>
         {
-        if (i === activeButtonIndex)
-        {
-            b.style.background = 'white';
-            b.style.color = 'black';
-        }
-        else
-        {
-            b.style.background = 'rgb(45, 47, 53)';
-            b.style.color = 'white';
-        }
+            if (i === activeButtonIndex)
+            {
+                b.style.background = 'white';
+                b.style.color = 'black';
+            }
+            else
+            {
+                b.style.background = 'rgb(45, 47, 53)';
+                b.style.color = 'white';
+            }
         });
     }
     await loadMovies(null, currentPage);
